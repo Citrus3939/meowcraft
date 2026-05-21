@@ -24,13 +24,18 @@ partial_target_multiple = 2.0
 
 // ========== 3. 2d减仓保本参数 ==========
 enable_partial_close = input.bool(true, "启用2d减仓保本")
-partial_close_ratio = input.float(50, "减仓比例(%)", minval=1, maxval=99, step=5, tooltip="达到2d后减仓多少百分比")
+partial_close_ratio = input.float(25.0, "减仓比例(%)", minval=1, maxval=99, step=5, tooltip="达到2d后减仓多少百分比；BTC 5分钟高盈亏比默认少减仓，让更多仓位吃后续趋势")
 enable_final_take_profit = input.bool(true, "启用剩余仓位止盈")
-final_take_profit_mode = input.string("较近者", "剩余仓位止盈模式", options=["RR", "百分比", "较近者"], tooltip="较近者会在RR目标和固定百分比目标中选择更近的止盈价；最终止盈不会早于2d减仓价")
-final_take_profit_rr = input.float(4.0, "剩余仓位止盈RR", minval=2.1, step=0.1, tooltip="R等于d%的初始风险，默认4R即约4d%")
-final_take_profit_pct = input.float(8.0, "剩余仓位止盈百分比(%)", minval=0.1, maxval=100, step=0.5, tooltip="按入场均价计算的固定盈利百分比止盈")
+final_take_profit_mode = input.string("RR", "剩余仓位止盈模式", options=["RR", "百分比", "较近者"], tooltip="BTC 5分钟高盈亏比默认用RR，让剩余仓位目标更远；最终止盈不会早于2d减仓价")
+final_take_profit_rr = input.float(6.0, "剩余仓位止盈RR", minval=2.1, step=0.1, tooltip="R等于d%的初始风险，默认6R即约6d%")
+final_take_profit_pct = input.float(10.0, "剩余仓位止盈百分比(%)", minval=0.1, maxval=100, step=0.5, tooltip="按入场均价计算的固定盈利百分比止盈")
 
-// ========== 4. 风控过滤参数 ==========
+// ========== 4. BTC 5分钟顺势过滤 ==========
+enable_trend_filter = input.bool(true, "启用EMA顺势过滤", tooltip="默认开启：提高盈亏比、减少逆势抄底摸顶；关闭后恢复原MACD+Stochastic核心入场")
+trend_ema_len = input.int(200, "趋势EMA长度", minval=1, tooltip="BTC 5分钟默认使用EMA200判断主趋势")
+trend_slope_bars = input.int(5, "趋势斜率确认K数", minval=1, tooltip="EMA高于/低于N根前，才认为趋势方向有效")
+
+// ========== 5. 风控过滤参数 ==========
 risk_per_trade_pct = input.float(1.0, "单笔最大风险占权益(%)", minval=0.1, maxval=10, step=0.1, tooltip="按d%的止损距离反推下单数量")
 max_position_pct = input.float(25.0, "最大仓位占权益(%)", minval=1, maxval=100, step=1, tooltip="限制单笔名义仓位，避免满仓或过度杠杆导致Margin Call")
 min_order_qty = input.float(0.0, "最小下单数量", minval=0, step=0.0001, tooltip="计算出的仓位小于该值时跳过交易；股票可设为1，加密货币可保持0")
@@ -73,8 +78,14 @@ calc_final_target(is_long, avg_price, risk) =>
 order_qty = calc_order_qty(d_stop_pct)
 
 // ========== 开仓信号 ==========
-long_condition = ta.crossover(k, d) and k < OverSold and ta.crossover(delta, 0)
-short_condition = ta.crossunder(k, d) and k > OverBought and ta.crossunder(delta, 0)
+trend_ema = ta.ema(close, trend_ema_len)
+trend_long_ok = not enable_trend_filter or (close > trend_ema and trend_ema > trend_ema[trend_slope_bars])
+trend_short_ok = not enable_trend_filter or (close < trend_ema and trend_ema < trend_ema[trend_slope_bars])
+
+raw_long_condition = ta.crossover(k, d) and k < OverSold and ta.crossover(delta, 0)
+raw_short_condition = ta.crossunder(k, d) and k > OverBought and ta.crossunder(delta, 0)
+long_condition = raw_long_condition and trend_long_ok
+short_condition = raw_short_condition and trend_short_ok
 
 setup_valid = order_qty >= min_order_qty and order_qty > 0 and strategy.equity > 0
 
@@ -182,6 +193,7 @@ plot(enable_final_take_profit and strategy.position_size > 0 ? final_target_pric
 plot(enable_final_take_profit and strategy.position_size < 0 ? final_target_price : na, "做空剩余止盈", color.new(color.lime, 0), linewidth=1, style=plot.style_linebr)
 
 plot(has_partial_closed and strategy.position_size != 0 ? entry_price : na, "保本线", color.new(color.yellow, 0), linewidth=2, style=plot.style_linebr)
+plot(enable_trend_filter ? trend_ema : na, "EMA顺势过滤", color.new(color.orange, 0), linewidth=1)
 
 plotshape(long_condition, title="做多信号", location=location.belowbar, style=shape.triangleup, size=size.small, color=color.new(color.green, 0))
 plotshape(short_condition, title="做空信号", location=location.abovebar, style=shape.triangledown, size=size.small, color=color.new(color.red, 0))
