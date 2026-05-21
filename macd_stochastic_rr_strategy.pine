@@ -25,6 +25,10 @@ atr_mult_stop = input.float(1.0, "ATR缓冲倍数", minval=0.0, step=0.1, toolti
 // ========== 3. 1:1减仓保本参数 ==========
 enable_partial_close = input.bool(true, "启用1:1减仓保本")
 partial_close_ratio = input.float(50, "减仓比例(%)", minval=1, maxval=99, step=5, tooltip="达到1:1后减仓多少百分比")
+enable_final_take_profit = input.bool(true, "启用剩余仓位止盈")
+final_take_profit_mode = input.string("较近者", "剩余仓位止盈模式", options=["RR", "百分比", "较近者"], tooltip="较近者会在RR目标和固定百分比目标中选择更近的止盈价")
+final_take_profit_rr = input.float(2.0, "剩余仓位止盈RR", minval=1.1, step=0.1, tooltip="按初始风险R计算，达到该RR后平掉剩余仓位")
+final_take_profit_pct = input.float(8.0, "剩余仓位止盈百分比(%)", minval=0.1, maxval=100, step=0.5, tooltip="按入场均价计算的固定盈利百分比止盈")
 
 // ========== 4. 风控过滤参数 ==========
 risk_per_trade_pct = input.float(1.0, "单笔最大风险占权益(%)", minval=0.1, maxval=10, step=0.1, tooltip="按入场价到止损价的距离反推下单数量")
@@ -68,6 +72,16 @@ calc_order_qty(stop_price) =>
     qty_by_position_cap = unit_value > 0 ? max_position_cash / unit_value : na
     math.min(qty_by_risk, qty_by_position_cap)
 
+calc_final_target(is_long, avg_price, risk) =>
+    rr_target = is_long ? avg_price + risk * final_take_profit_rr : avg_price - risk * final_take_profit_rr
+    pct_target = is_long ? avg_price * (1 + final_take_profit_pct / 100) : avg_price * (1 - final_take_profit_pct / 100)
+    if final_take_profit_mode == "RR"
+        rr_target
+    else if final_take_profit_mode == "百分比"
+        pct_target
+    else
+        is_long ? math.min(rr_target, pct_target) : math.max(rr_target, pct_target)
+
 long_stop_distance_pct = calc_stop_distance_pct(dynamic_stop_long)
 short_stop_distance_pct = calc_stop_distance_pct(dynamic_stop_short)
 long_order_qty = calc_order_qty(dynamic_stop_long)
@@ -84,6 +98,7 @@ short_setup_valid = not na(dynamic_stop_short) and close < dynamic_stop_short an
 var float entry_price = na
 var float initial_stop = na
 var float rr_target_price = na
+var float final_target_price = na
 var bool has_partial_closed = false
 var float pending_stop = na
 var int pending_direction = 0
@@ -112,12 +127,14 @@ if new_long_position
     actual_stop_distance_pct = risk / entry_price * 100
     if not na(initial_stop) and risk > syminfo.mintick and actual_stop_distance_pct <= max_stop_distance_pct
         rr_target_price := entry_price + risk
+        final_target_price := calc_final_target(true, entry_price, risk)
         has_partial_closed := false
     else
         strategy.close("Long", comment="无效风控")
         entry_price := na
         initial_stop := na
         rr_target_price := na
+        final_target_price := na
     pending_stop := na
     pending_direction := 0
 
@@ -128,12 +145,14 @@ if new_short_position
     actual_stop_distance_pct = risk / entry_price * 100
     if not na(initial_stop) and risk > syminfo.mintick and actual_stop_distance_pct <= max_stop_distance_pct
         rr_target_price := entry_price - risk
+        final_target_price := calc_final_target(false, entry_price, risk)
         has_partial_closed := false
     else
         strategy.close("Short", comment="无效风控")
         entry_price := na
         initial_stop := na
         rr_target_price := na
+        final_target_price := na
     pending_stop := na
     pending_direction := 0
 
@@ -152,10 +171,11 @@ if strategy.position_size > 0 and not na(initial_stop) and not na(entry_price)
         strategy.exit("L-Stop", from_entry="Long", stop=initial_stop, comment="前低止损")
     else
         strategy.cancel("L-Partial-1R")
+        long_final_limit = enable_final_take_profit ? final_target_price : na
         if has_partial_closed
-            strategy.exit("L-Stop", from_entry="Long", stop=entry_price, comment="保本损")
+            strategy.exit("L-Stop", from_entry="Long", stop=entry_price, limit=long_final_limit, comment_profit="剩余止盈", comment_loss="保本损")
         else
-            strategy.exit("L-Stop", from_entry="Long", stop=initial_stop, comment="前低止损")
+            strategy.exit("L-Stop", from_entry="Long", stop=initial_stop, limit=long_final_limit, comment_profit="剩余止盈", comment_loss="前低止损")
 
 if strategy.position_size < 0 and not na(initial_stop) and not na(entry_price)
     if enable_partial_close and not has_partial_closed and not na(rr_target_price)
@@ -163,10 +183,11 @@ if strategy.position_size < 0 and not na(initial_stop) and not na(entry_price)
         strategy.exit("S-Stop", from_entry="Short", stop=initial_stop, comment="前高止损")
     else
         strategy.cancel("S-Partial-1R")
+        short_final_limit = enable_final_take_profit ? final_target_price : na
         if has_partial_closed
-            strategy.exit("S-Stop", from_entry="Short", stop=entry_price, comment="保本损")
+            strategy.exit("S-Stop", from_entry="Short", stop=entry_price, limit=short_final_limit, comment_profit="剩余止盈", comment_loss="保本损")
         else
-            strategy.exit("S-Stop", from_entry="Short", stop=initial_stop, comment="前高止损")
+            strategy.exit("S-Stop", from_entry="Short", stop=initial_stop, limit=short_final_limit, comment_profit="剩余止盈", comment_loss="前高止损")
 
 // 空仓后重置状态，避免下一笔交易沿用旧价格。
 if strategy.position_size == 0 and strategy.position_size[1] != 0
@@ -175,6 +196,7 @@ if strategy.position_size == 0 and strategy.position_size[1] != 0
     entry_price := na
     initial_stop := na
     rr_target_price := na
+    final_target_price := na
     has_partial_closed := false
     pending_stop := na
     pending_direction := 0
@@ -185,6 +207,9 @@ plot(strategy.position_size < 0 ? initial_stop : na, "做空初始止损", color
 
 plot(strategy.position_size > 0 and not has_partial_closed ? rr_target_price : na, "做多1:1目标价", color.new(color.green, 0), linewidth=1, style=plot.style_linebr)
 plot(strategy.position_size < 0 and not has_partial_closed ? rr_target_price : na, "做空1:1目标价", color.new(color.green, 0), linewidth=1, style=plot.style_linebr)
+
+plot(enable_final_take_profit and strategy.position_size > 0 ? final_target_price : na, "做多剩余止盈", color.new(color.lime, 0), linewidth=1, style=plot.style_linebr)
+plot(enable_final_take_profit and strategy.position_size < 0 ? final_target_price : na, "做空剩余止盈", color.new(color.lime, 0), linewidth=1, style=plot.style_linebr)
 
 plot(has_partial_closed and strategy.position_size != 0 ? entry_price : na, "保本线", color.new(color.yellow, 0), linewidth=2, style=plot.style_linebr)
 
