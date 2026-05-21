@@ -1,0 +1,173 @@
+//@version=6
+strategy("MACD+Stochastic + 动态前高/前低止损 + 1:1减仓保本",
+     shorttitle="MACD_Stoch_RR_BE",
+     overlay=true,
+     initial_capital=10000,
+     default_qty_type=strategy.percent_of_equity,
+     default_qty_value=100,
+     pyramiding=0,
+     calc_on_order_fills=true)
+
+// ========== 1. 原策略参数 ==========
+fastMAlen = input.int(12, "MACD快线")
+slowMAlen = input.int(26, "MACD慢线")
+signalMACDlen = input.int(9, "MACD信号线")
+StochLength = input.int(14, "Stochastic长度")
+OverBoughtOverSold = input.int(71, "超买线(超卖=100-此值)")
+smoothK = input.int(3, "%K平滑")
+smoothD = input.int(2, "%D平滑")
+
+// ========== 2. 动态前高/前低参数 ==========
+lookback_high = input.int(20, "前高/前低回看周期", minval=1, tooltip="做多止损用前低，做空止损用前高")
+atr_mult_stop = input.float(1.0, "ATR缓冲倍数", minval=0.0, step=0.1, tooltip="在前高/前低基础上增加ATR缓冲")
+
+// ========== 3. 1:1减仓保本参数 ==========
+enable_partial_close = input.bool(true, "启用1:1减仓保本")
+partial_close_ratio = input.float(50, "减仓比例(%)", minval=1, maxval=99, step=5, tooltip="达到1:1后减仓多少百分比")
+
+// ========== 计算指标 ==========
+// MACD
+MACD = ta.ema(close, fastMAlen) - ta.ema(close, slowMAlen)
+signalMACD = ta.ema(MACD, signalMACDlen)
+delta = MACD - signalMACD
+
+// Stochastic
+OverBought = OverBoughtOverSold
+OverSold = 100 - OverBought
+k = ta.sma(ta.stoch(close, high, low, StochLength), smoothK)
+d = ta.sma(k, smoothD)
+
+// ========== 动态止损计算 ==========
+atr_val = ta.atr(14)
+
+// 做多：入场信号出现前N周期最低点 - ATR缓冲。
+prev_low = ta.lowest(low, lookback_high)[1]
+dynamic_stop_long = prev_low - atr_val * atr_mult_stop
+
+// 做空：入场信号出现前N周期最高点 + ATR缓冲。
+prev_high = ta.highest(high, lookback_high)[1]
+dynamic_stop_short = prev_high + atr_val * atr_mult_stop
+
+// ========== 开仓信号 ==========
+long_condition = ta.crossover(k, d) and k < OverSold and ta.crossover(delta, 0)
+short_condition = ta.crossunder(k, d) and k > OverBought and ta.crossunder(delta, 0)
+
+long_setup_valid = not na(dynamic_stop_long) and close > dynamic_stop_long
+short_setup_valid = not na(dynamic_stop_short) and close < dynamic_stop_short
+
+// ========== 状态变量 ==========
+var float entry_price = na
+var float initial_stop = na
+var float rr_target_price = na
+var bool has_partial_closed = false
+var float pending_stop = na
+var int pending_direction = 0
+
+// ========== 开仓执行 ==========
+if long_condition and strategy.position_size == 0 and long_setup_valid
+    pending_stop := dynamic_stop_long
+    pending_direction := 1
+    has_partial_closed := false
+    strategy.entry("Long", strategy.long)
+else if short_condition and strategy.position_size == 0 and short_setup_valid
+    pending_stop := dynamic_stop_short
+    pending_direction := -1
+    has_partial_closed := false
+    strategy.entry("Short", strategy.short)
+
+// 持仓真正建立后，用实际成交均价计算1:1目标价。
+new_long_position = strategy.position_size > 0 and strategy.position_size[1] <= 0
+new_short_position = strategy.position_size < 0 and strategy.position_size[1] >= 0
+
+if new_long_position
+    entry_price := strategy.position_avg_price
+    initial_stop := pending_direction == 1 ? pending_stop : dynamic_stop_long
+    risk = entry_price - initial_stop
+    if not na(initial_stop) and risk > syminfo.mintick
+        rr_target_price := entry_price + risk
+        has_partial_closed := false
+    else
+        strategy.close("Long", comment="无效止损")
+        entry_price := na
+        initial_stop := na
+        rr_target_price := na
+    pending_stop := na
+    pending_direction := 0
+
+if new_short_position
+    entry_price := strategy.position_avg_price
+    initial_stop := pending_direction == -1 ? pending_stop : dynamic_stop_short
+    risk = initial_stop - entry_price
+    if not na(initial_stop) and risk > syminfo.mintick
+        rr_target_price := entry_price - risk
+        has_partial_closed := false
+    else
+        strategy.close("Short", comment="无效止损")
+        entry_price := na
+        initial_stop := na
+        rr_target_price := na
+    pending_stop := na
+    pending_direction := 0
+
+// ========== 止损、1:1减仓、保本损 ==========
+new_closed_trade = strategy.closedtrades > nz(strategy.closedtrades[1], 0)
+if enable_partial_close and not has_partial_closed and new_closed_trade and strategy.position_size != 0 and not na(rr_target_price)
+    last_exit_price = strategy.closedtrades.exit_price(strategy.closedtrades - 1)
+    long_partial_profit = strategy.position_size > 0 and last_exit_price >= rr_target_price - syminfo.mintick
+    short_partial_profit = strategy.position_size < 0 and last_exit_price <= rr_target_price + syminfo.mintick
+    if long_partial_profit or short_partial_profit
+        has_partial_closed := true
+
+if strategy.position_size > 0 and not na(initial_stop) and not na(entry_price)
+    if enable_partial_close and not has_partial_closed and not na(rr_target_price)
+        strategy.exit("L-Partial-1R", from_entry="Long", qty_percent=partial_close_ratio, limit=rr_target_price, stop=initial_stop, comment_profit="1:1减仓", comment_loss="前低止损")
+        strategy.exit("L-Stop", from_entry="Long", stop=initial_stop, comment="前低止损")
+    else
+        strategy.cancel("L-Partial-1R")
+        if has_partial_closed
+            strategy.exit("L-Stop", from_entry="Long", stop=entry_price, comment="保本损")
+        else
+            strategy.exit("L-Stop", from_entry="Long", stop=initial_stop, comment="前低止损")
+
+if strategy.position_size < 0 and not na(initial_stop) and not na(entry_price)
+    if enable_partial_close and not has_partial_closed and not na(rr_target_price)
+        strategy.exit("S-Partial-1R", from_entry="Short", qty_percent=partial_close_ratio, limit=rr_target_price, stop=initial_stop, comment_profit="1:1减仓", comment_loss="前高止损")
+        strategy.exit("S-Stop", from_entry="Short", stop=initial_stop, comment="前高止损")
+    else
+        strategy.cancel("S-Partial-1R")
+        if has_partial_closed
+            strategy.exit("S-Stop", from_entry="Short", stop=entry_price, comment="保本损")
+        else
+            strategy.exit("S-Stop", from_entry="Short", stop=initial_stop, comment="前高止损")
+
+// 空仓后重置状态，避免下一笔交易沿用旧价格。
+if strategy.position_size == 0 and strategy.position_size[1] != 0
+    strategy.cancel("L-Partial-1R")
+    strategy.cancel("S-Partial-1R")
+    entry_price := na
+    initial_stop := na
+    rr_target_price := na
+    has_partial_closed := false
+    pending_stop := na
+    pending_direction := 0
+
+// ========== 可视化 ==========
+plot(strategy.position_size > 0 ? initial_stop : na, "做多初始止损", color.red, linewidth=2, style=plot.style_linebr)
+plot(strategy.position_size < 0 ? initial_stop : na, "做空初始止损", color.red, linewidth=2, style=plot.style_linebr)
+
+plot(strategy.position_size > 0 and not has_partial_closed ? rr_target_price : na, "做多1:1目标价", color.new(color.green, 0), linewidth=1, style=plot.style_linebr)
+plot(strategy.position_size < 0 and not has_partial_closed ? rr_target_price : na, "做空1:1目标价", color.new(color.green, 0), linewidth=1, style=plot.style_linebr)
+
+plot(has_partial_closed and strategy.position_size != 0 ? entry_price : na, "保本线", color.new(color.yellow, 0), linewidth=2, style=plot.style_linebr)
+
+plotshape(long_condition, title="做多信号", location=location.belowbar, style=shape.triangleup, size=size.small, color=color.new(color.green, 0))
+plotshape(short_condition, title="做空信号", location=location.abovebar, style=shape.triangledown, size=size.small, color=color.new(color.red, 0))
+
+// K线颜色（原策略）
+fastMA = ta.ema(close, fastMAlen)
+slowMA = ta.ema(close, slowMAlen)
+veryslowMA = ta.sma(close, 100)
+bartrendcolor = close > fastMA and close > slowMA and close > veryslowMA and ta.change(slowMA) > 0 ? color.green :
+     close < fastMA and close < slowMA and close < veryslowMA and ta.change(slowMA) < 0 ? color.red :
+     color.blue
+barcolor(bartrendcolor)
