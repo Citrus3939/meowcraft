@@ -3,9 +3,11 @@ strategy("MACD+Stochastic + 动态前高/前低止损 + 1:1减仓保本",
      shorttitle="MACD_Stoch_RR_BE",
      overlay=true,
      initial_capital=10000,
-     default_qty_type=strategy.percent_of_equity,
-     default_qty_value=100,
-     pyramiding=0)
+     default_qty_type=strategy.fixed,
+     default_qty_value=1,
+     pyramiding=0,
+     margin_long=100,
+     margin_short=100)
 
 // ========== 1. 原策略参数 ==========
 fastMAlen = input.int(12, "MACD快线")
@@ -23,6 +25,12 @@ atr_mult_stop = input.float(1.0, "ATR缓冲倍数", minval=0.0, step=0.1, toolti
 // ========== 3. 1:1减仓保本参数 ==========
 enable_partial_close = input.bool(true, "启用1:1减仓保本")
 partial_close_ratio = input.float(50, "减仓比例(%)", minval=1, maxval=99, step=5, tooltip="达到1:1后减仓多少百分比")
+
+// ========== 4. 风控过滤参数 ==========
+risk_per_trade_pct = input.float(1.0, "单笔最大风险占权益(%)", minval=0.1, maxval=10, step=0.1, tooltip="按入场价到止损价的距离反推下单数量")
+max_position_pct = input.float(25.0, "最大仓位占权益(%)", minval=1, maxval=100, step=1, tooltip="限制单笔名义仓位，避免满仓或过度杠杆导致Margin Call")
+max_stop_distance_pct = input.float(10.0, "最大止损距离(%)", minval=0.1, maxval=100, step=0.5, tooltip="止损距离超过此百分比时跳过交易，减少无效大风险交易")
+min_order_qty = input.float(0.0, "最小下单数量", minval=0, step=0.0001, tooltip="计算出的仓位小于该值时跳过交易；股票可设为1，加密货币可保持0")
 
 // ========== 计算指标 ==========
 // MACD
@@ -47,12 +55,30 @@ dynamic_stop_long = prev_low - atr_val * atr_mult_stop
 prev_high = ta.highest(high, lookback_high)[1]
 dynamic_stop_short = prev_high + atr_val * atr_mult_stop
 
+calc_stop_distance_pct(stop_price) =>
+    math.abs(close - stop_price) / close * 100
+
+calc_order_qty(stop_price) =>
+    stop_distance = math.abs(close - stop_price)
+    risk_per_unit = stop_distance * syminfo.pointvalue
+    unit_value = close * syminfo.pointvalue
+    risk_cash = strategy.equity * risk_per_trade_pct / 100
+    max_position_cash = strategy.equity * max_position_pct / 100
+    qty_by_risk = risk_per_unit > 0 ? risk_cash / risk_per_unit : na
+    qty_by_position_cap = unit_value > 0 ? max_position_cash / unit_value : na
+    math.min(qty_by_risk, qty_by_position_cap)
+
+long_stop_distance_pct = calc_stop_distance_pct(dynamic_stop_long)
+short_stop_distance_pct = calc_stop_distance_pct(dynamic_stop_short)
+long_order_qty = calc_order_qty(dynamic_stop_long)
+short_order_qty = calc_order_qty(dynamic_stop_short)
+
 // ========== 开仓信号 ==========
 long_condition = ta.crossover(k, d) and k < OverSold and ta.crossover(delta, 0)
 short_condition = ta.crossunder(k, d) and k > OverBought and ta.crossunder(delta, 0)
 
-long_setup_valid = not na(dynamic_stop_long) and close > dynamic_stop_long
-short_setup_valid = not na(dynamic_stop_short) and close < dynamic_stop_short
+long_setup_valid = not na(dynamic_stop_long) and close > dynamic_stop_long and long_stop_distance_pct <= max_stop_distance_pct and long_order_qty >= min_order_qty and long_order_qty > 0 and strategy.equity > 0
+short_setup_valid = not na(dynamic_stop_short) and close < dynamic_stop_short and short_stop_distance_pct <= max_stop_distance_pct and short_order_qty >= min_order_qty and short_order_qty > 0 and strategy.equity > 0
 
 // ========== 状态变量 ==========
 var float entry_price = na
@@ -67,12 +93,12 @@ if long_condition and strategy.position_size == 0 and long_setup_valid
     pending_stop := dynamic_stop_long
     pending_direction := 1
     has_partial_closed := false
-    strategy.entry("Long", strategy.long)
+    strategy.entry("Long", strategy.long, qty=long_order_qty)
 else if short_condition and strategy.position_size == 0 and short_setup_valid
     pending_stop := dynamic_stop_short
     pending_direction := -1
     has_partial_closed := false
-    strategy.entry("Short", strategy.short)
+    strategy.entry("Short", strategy.short, qty=short_order_qty)
 
 // 持仓真正建立后，用实际成交均价计算1:1目标价。
 // 不使用calc_on_order_fills，避免成交后在同一根历史K线内读取完整高低点造成前瞻性偏差。
@@ -83,11 +109,12 @@ if new_long_position
     entry_price := strategy.position_avg_price
     initial_stop := pending_direction == 1 ? pending_stop : dynamic_stop_long
     risk = entry_price - initial_stop
-    if not na(initial_stop) and risk > syminfo.mintick
+    actual_stop_distance_pct = risk / entry_price * 100
+    if not na(initial_stop) and risk > syminfo.mintick and actual_stop_distance_pct <= max_stop_distance_pct
         rr_target_price := entry_price + risk
         has_partial_closed := false
     else
-        strategy.close("Long", comment="无效止损")
+        strategy.close("Long", comment="无效风控")
         entry_price := na
         initial_stop := na
         rr_target_price := na
@@ -98,11 +125,12 @@ if new_short_position
     entry_price := strategy.position_avg_price
     initial_stop := pending_direction == -1 ? pending_stop : dynamic_stop_short
     risk = initial_stop - entry_price
-    if not na(initial_stop) and risk > syminfo.mintick
+    actual_stop_distance_pct = risk / entry_price * 100
+    if not na(initial_stop) and risk > syminfo.mintick and actual_stop_distance_pct <= max_stop_distance_pct
         rr_target_price := entry_price - risk
         has_partial_closed := false
     else
-        strategy.close("Short", comment="无效止损")
+        strategy.close("Short", comment="无效风控")
         entry_price := na
         initial_stop := na
         rr_target_price := na
