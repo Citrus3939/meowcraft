@@ -5,8 +5,7 @@ strategy("MACD+Stochastic + 动态前高/前低止损 + 1:1减仓保本",
      initial_capital=10000,
      default_qty_type=strategy.percent_of_equity,
      default_qty_value=100,
-     pyramiding=0,
-     calc_on_order_fills=true)
+     pyramiding=0)
 
 // ========== 1. 原策略参数 ==========
 fastMAlen = input.int(12, "MACD快线")
@@ -40,11 +39,11 @@ d = ta.sma(k, smoothD)
 // ========== 动态止损计算 ==========
 atr_val = ta.atr(14)
 
-// 做多：入场信号出现前N周期最低点 - ATR缓冲。
+// 做多：入场信号出现前N周期最低点 - ATR缓冲。[1]确保不读取当前K线的高低点。
 prev_low = ta.lowest(low, lookback_high)[1]
 dynamic_stop_long = prev_low - atr_val * atr_mult_stop
 
-// 做空：入场信号出现前N周期最高点 + ATR缓冲。
+// 做空：入场信号出现前N周期最高点 + ATR缓冲。[1]确保不读取当前K线的高低点。
 prev_high = ta.highest(high, lookback_high)[1]
 dynamic_stop_short = prev_high + atr_val * atr_mult_stop
 
@@ -76,6 +75,7 @@ else if short_condition and strategy.position_size == 0 and short_setup_valid
     strategy.entry("Short", strategy.short)
 
 // 持仓真正建立后，用实际成交均价计算1:1目标价。
+// 不使用calc_on_order_fills，避免成交后在同一根历史K线内读取完整高低点造成前瞻性偏差。
 new_long_position = strategy.position_size > 0 and strategy.position_size[1] <= 0
 new_short_position = strategy.position_size < 0 and strategy.position_size[1] >= 0
 
