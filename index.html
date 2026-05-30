@@ -14,6 +14,7 @@
       </a>
       <div class="topbar__actions">
         <a href="#tradeForm">新增交易</a>
+        <a href="#analyticsTitle">盈亏看板</a>
         <a href="#tableTitle">查看记录</a>
       </div>
     </nav>
@@ -103,6 +104,11 @@
             </label>
 
             <label>
+              实际盈亏
+              <input id="realizedPnl" name="realizedPnl" type="number" step="0.01" placeholder="选填，例如 128.5 或 -42">
+            </label>
+
+            <label>
               止损
               <input id="stopLoss" name="stopLoss" type="number" step="0.0001" min="0" placeholder="例如 99.8" required>
             </label>
@@ -148,6 +154,65 @@
         </form>
       </section>
 
+      <section class="card analytics-card" aria-labelledby="analyticsTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Analytics</p>
+            <h2 id="analyticsTitle">盈亏看板</h2>
+          </div>
+          <button class="ghost-button" id="resetPeriodButton" type="button">回到本月</button>
+        </div>
+
+        <div class="analytics-controls" aria-label="统计时间段">
+          <label>
+            开始日期
+            <input id="periodStart" type="date">
+          </label>
+          <label>
+            结束日期
+            <input id="periodEnd" type="date">
+          </label>
+        </div>
+
+        <div class="period-stats" aria-label="时间段统计">
+          <div>
+            <span id="periodTradeCount">0</span>
+            <small>时间段内交易次数</small>
+          </div>
+          <div>
+            <span id="periodTotalPnl">--</span>
+            <small>时间段总盈亏</small>
+          </div>
+        </div>
+
+        <div class="analytics-grid">
+          <div class="calendar-panel">
+            <div class="calendar-header">
+              <button class="icon-button" id="prevMonthButton" type="button" aria-label="上个月">‹</button>
+              <strong id="calendarMonthLabel">--</strong>
+              <button class="icon-button" id="nextMonthButton" type="button" aria-label="下个月">›</button>
+            </div>
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid" aria-label="盈亏日历"></div>
+            <div class="calendar-legend">
+              <span><i class="dot profit"></i>盈利日</span>
+              <span><i class="dot loss"></i>亏损日</span>
+            </div>
+          </div>
+
+          <div class="curve-panel">
+            <div class="curve-heading">
+              <strong>盈亏增长曲线</strong>
+              <span id="curveSummary">--</span>
+            </div>
+            <svg id="pnlCurve" viewBox="0 0 640 260" role="img" aria-label="时间段盈亏增长曲线"></svg>
+            <p class="curve-empty" id="curveEmpty" hidden>当前时间段没有可计算盈亏的交易。</p>
+          </div>
+        </div>
+      </section>
+
       <section class="card table-card" aria-labelledby="tableTitle">
         <div class="section-heading">
           <div>
@@ -182,6 +247,7 @@
                 <th>持仓时间</th>
                 <th>量能</th>
                 <th>止损/止盈</th>
+                <th>盈亏</th>
                 <th>盈亏比</th>
                 <th>交易截图</th>
                 <th>事后复盘</th>
@@ -190,7 +256,7 @@
             </thead>
             <tbody id="tradeTableBody">
               <tr>
-                <td colspan="10" class="empty-state">还没有交易记录，先新增一笔交易。</td>
+                <td colspan="11" class="empty-state">还没有交易记录，先新增一笔交易。</td>
               </tr>
             </tbody>
           </table>
