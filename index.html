@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>交易日志表格</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Trade Journal</p>
+        <h1>交易日志表格</h1>
+        <p class="hero__copy">
+          记录每一笔交易的理由、入场出场、持仓时间、截图、量能、复盘、止损止盈与盈亏比。
+        </p>
+      </div>
+      <div class="hero__stats" aria-label="交易统计">
+        <div>
+          <span id="totalTrades">0</span>
+          <small>交易笔数</small>
+        </div>
+        <div>
+          <span id="avgRatio">--</span>
+          <small>平均盈亏比</small>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="card form-card" aria-labelledby="formTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Record</p>
+            <h2 id="formTitle">新增交易</h2>
+          </div>
+          <button class="ghost-button" id="resetFormButton" type="button">清空表单</button>
+        </div>
+
+        <form id="tradeForm">
+          <input id="tradeId" type="hidden">
+
+          <div class="form-grid">
+            <label>
+              交易标的
+              <input id="symbol" name="symbol" type="text" placeholder="例如 BTC/USDT、AAPL" required>
+            </label>
+
+            <label>
+              方向
+              <select id="direction" name="direction" required>
+                <option value="做多">做多</option>
+                <option value="做空">做空</option>
+              </select>
+            </label>
+
+            <label>
+              入场时间
+              <input id="entryTime" name="entryTime" type="datetime-local" required>
+            </label>
+
+            <label>
+              出场时间
+              <input id="exitTime" name="exitTime" type="datetime-local">
+            </label>
+
+            <label>
+              入场价格
+              <input id="entryPrice" name="entryPrice" type="number" step="0.0001" min="0" placeholder="例如 102.5" required>
+            </label>
+
+            <label>
+              出场价格
+              <input id="exitPrice" name="exitPrice" type="number" step="0.0001" min="0" placeholder="未平仓可留空">
+            </label>
+
+            <label>
+              止损
+              <input id="stopLoss" name="stopLoss" type="number" step="0.0001" min="0" placeholder="例如 99.8" required>
+            </label>
+
+            <label>
+              止盈
+              <input id="takeProfit" name="takeProfit" type="number" step="0.0001" min="0" placeholder="例如 108.2" required>
+            </label>
+
+            <label>
+              交易时量能
+              <input id="volume" name="volume" type="text" placeholder="例如 放量突破、成交量 1.2M" required>
+            </label>
+
+            <label>
+              交易截图
+              <input id="screenshot" name="screenshot" type="file" accept="image/*">
+            </label>
+          </div>
+
+          <label>
+            交易理由
+            <textarea id="reason" name="reason" rows="3" placeholder="记录入场逻辑、信号、市场环境" required></textarea>
+          </label>
+
+          <label>
+            事后复盘
+            <textarea id="review" name="review" rows="3" placeholder="记录执行质量、可优化点、情绪状态"></textarea>
+          </label>
+
+          <div class="preview" id="screenshotPreview" hidden>
+            <img id="previewImage" alt="交易截图预览">
+            <div>
+              <p id="previewName"></p>
+              <button class="ghost-button" id="removeScreenshotButton" type="button">移除截图</button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="primary-button" type="submit">保存交易</button>
+            <p class="hint">数据保存在当前浏览器本地，可刷新后继续使用。</p>
+          </div>
+        </form>
+      </section>
+
+      <section class="card table-card" aria-labelledby="tableTitle">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Journal</p>
+            <h2 id="tableTitle">交易记录</h2>
+          </div>
+          <button class="ghost-button danger" id="clearAllButton" type="button">清空全部</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>标的/方向</th>
+                <th>交易理由</th>
+                <th>入场/出场</th>
+                <th>持仓时间</th>
+                <th>量能</th>
+                <th>止损/止盈</th>
+                <th>盈亏比</th>
+                <th>交易截图</th>
+                <th>事后复盘</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="tradeTableBody">
+              <tr>
+                <td colspan="10" class="empty-state">还没有交易记录，先新增一笔交易。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
