@@ -12,6 +12,10 @@ const previewName = document.querySelector("#previewName");
 const removeScreenshotButton = document.querySelector("#removeScreenshotButton");
 const totalTrades = document.querySelector("#totalTrades");
 const avgRatio = document.querySelector("#avgRatio");
+const openTrades = document.querySelector("#openTrades");
+const completedTrades = document.querySelector("#completedTrades");
+const searchInput = document.querySelector("#searchInput");
+const directionFilter = document.querySelector("#directionFilter");
 
 let trades = loadTrades();
 let screenshotDraft = {
@@ -27,6 +31,8 @@ clearAllButton.addEventListener("click", clearAllTrades);
 removeScreenshotButton.addEventListener("click", removeScreenshot);
 screenshotInput.addEventListener("change", handleScreenshotChange);
 tableBody.addEventListener("click", handleTableAction);
+searchInput.addEventListener("input", render);
+directionFilter.addEventListener("change", render);
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -186,20 +192,58 @@ function render() {
   renderStats();
 
   if (!trades.length) {
-    tableBody.innerHTML = '<tr><td colspan="10" class="empty-state">还没有交易记录，先新增一笔交易。</td></tr>';
+    renderEmptyState("还没有交易记录", "先新增一笔交易，建立你的可复盘样本库。");
     return;
   }
 
-  const sortedTrades = [...trades].sort((a, b) => {
+  const filteredTrades = getFilteredTrades();
+
+  if (!filteredTrades.length) {
+    renderEmptyState("没有匹配的交易", "换一个关键词或筛选条件再试试。");
+    return;
+  }
+
+  const sortedTrades = [...filteredTrades].sort((a, b) => {
     return new Date(b.entryTime).getTime() - new Date(a.entryTime).getTime();
   });
 
   tableBody.innerHTML = sortedTrades.map(renderTradeRow).join("");
 }
 
+function renderEmptyState(title, detail) {
+  tableBody.innerHTML = `
+    <tr>
+      <td colspan="10" class="empty-state">
+        <div class="empty-panel">
+          <strong>${title}</strong>
+          <span>${detail}</span>
+        </div>
+      </td>
+    </tr>
+  `;
+}
+
+function getFilteredTrades() {
+  const keyword = searchInput.value.trim().toLowerCase();
+  const direction = directionFilter.value;
+
+  return trades.filter((trade) => {
+    const matchesDirection = direction === "全部" || trade.direction === direction;
+    const searchable = [trade.symbol, trade.reason, trade.volume, trade.review]
+      .join(" ")
+      .toLowerCase();
+    const matchesKeyword = !keyword || searchable.includes(keyword);
+
+    return matchesDirection && matchesKeyword;
+  });
+}
+
 function renderTradeRow(trade) {
   const holdingTime = formatHoldingTime(trade.entryTime, trade.exitTime);
   const ratio = calculateRiskReward(trade);
+  const ratioClass = ratio === "--" ? "ratio empty" : "ratio";
+  const statusClass = trade.exitTime ? "closed" : "open";
+  const statusText = trade.exitTime ? "已平仓" : "持仓中";
   const screenshot = trade.screenshot
     ? `<a href="${escapeAttribute(trade.screenshot)}" target="_blank" rel="noreferrer"><img class="thumbnail" src="${escapeAttribute(trade.screenshot)}" alt="${escapeAttribute(trade.screenshotName || "交易截图")}"></a>`
     : '<span class="cell-sub">未上传</span>';
@@ -210,6 +254,7 @@ function renderTradeRow(trade) {
       <td>
         <span class="cell-title">${escapeHtml(trade.symbol)}</span>
         <span class="cell-sub">${escapeHtml(trade.direction)}</span>
+        <span class="status-pill ${statusClass}">${statusText}</span>
       </td>
       <td>${formatMultiline(trade.reason)}</td>
       <td>
@@ -222,7 +267,7 @@ function renderTradeRow(trade) {
         <span class="cell-title">止损 ${formatNumber(trade.stopLoss)}</span>
         <span class="cell-sub">止盈 ${formatNumber(trade.takeProfit)}</span>
       </td>
-      <td><span class="ratio">${ratio}</span></td>
+      <td><span class="${ratioClass}">${ratio}</span></td>
       <td>${screenshot}</td>
       <td>${trade.review ? formatMultiline(trade.review) : '<span class="cell-sub">待复盘</span>'}</td>
       <td>
@@ -236,10 +281,15 @@ function renderTradeRow(trade) {
 }
 
 function renderStats() {
+  const openCount = trades.filter((trade) => !trade.exitTime).length;
+  const completedCount = trades.length - openCount;
+
   totalTrades.textContent = String(trades.length);
+  openTrades.textContent = String(openCount);
+  completedTrades.textContent = String(completedCount);
 
   const ratios = trades
-    .map((trade) => parseFloat(calculateRiskReward(trade).replace("1:", "")))
+    .map(calculateRiskRewardValue)
     .filter((ratio) => Number.isFinite(ratio));
 
   if (!ratios.length) {
@@ -252,6 +302,16 @@ function renderStats() {
 }
 
 function calculateRiskReward(trade) {
+  const ratio = calculateRiskRewardValue(trade);
+
+  if (!Number.isFinite(ratio)) {
+    return "--";
+  }
+
+  return `1:${ratio.toFixed(2)}`;
+}
+
+function calculateRiskRewardValue(trade) {
   const entry = Number(trade.entryPrice);
   const stopLoss = Number(trade.stopLoss);
   const takeProfit = Number(trade.takeProfit);
@@ -259,10 +319,10 @@ function calculateRiskReward(trade) {
   const reward = Math.abs(takeProfit - entry);
 
   if (!risk || !Number.isFinite(risk) || !Number.isFinite(reward)) {
-    return "--";
+    return NaN;
   }
 
-  return `1:${(reward / risk).toFixed(2)}`;
+  return reward / risk;
 }
 
 function formatHoldingTime(entryTime, exitTime) {

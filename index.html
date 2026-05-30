@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <nav class="topbar" aria-label="主导航">
+      <a class="brand" href="#">
+        <span class="brand__mark">TJ</span>
+        <span>交易日志</span>
+      </a>
+      <div class="topbar__actions">
+        <a href="#tradeForm">新增交易</a>
+        <a href="#tableTitle">查看记录</a>
+      </div>
+    </nav>
+
     <header class="hero">
       <div>
         <p class="eyebrow">Trade Journal</p>
@@ -14,6 +25,10 @@
         <p class="hero__copy">
           记录每一笔交易的理由、入场出场、持仓时间、截图、量能、复盘、止损止盈与盈亏比。
         </p>
+        <div class="hero__cta">
+          <a class="primary-link" href="#tradeForm">开始记录</a>
+          <span>用复盘把每笔交易变成可迭代的策略样本。</span>
+        </div>
       </div>
       <div class="hero__stats" aria-label="交易统计">
         <div>
@@ -23,6 +38,14 @@
         <div>
           <span id="avgRatio">--</span>
           <small>平均盈亏比</small>
+        </div>
+        <div>
+          <span id="openTrades">0</span>
+          <small>持仓中</small>
+        </div>
+        <div>
+          <span id="completedTrades">0</span>
+          <small>已平仓</small>
         </div>
       </div>
     </header>
@@ -35,6 +58,11 @@
             <h2 id="formTitle">新增交易</h2>
           </div>
           <button class="ghost-button" id="resetFormButton" type="button">清空表单</button>
+        </div>
+
+        <div class="insight-card" aria-label="记录提示">
+          <strong>记录建议</strong>
+          <p>先写交易理由和失效条件，再填写止损止盈，帮助你在复盘时区分计划内亏损和情绪化交易。</p>
         </div>
 
         <form id="tradeForm">
@@ -127,6 +155,21 @@
             <h2 id="tableTitle">交易记录</h2>
           </div>
           <button class="ghost-button danger" id="clearAllButton" type="button">清空全部</button>
+        </div>
+
+        <div class="table-toolbar" aria-label="交易记录筛选">
+          <label class="search-field">
+            搜索
+            <input id="searchInput" type="search" placeholder="搜索标的、理由、量能或复盘">
+          </label>
+          <label class="filter-field">
+            方向筛选
+            <select id="directionFilter">
+              <option value="全部">全部方向</option>
+              <option value="做多">做多</option>
+              <option value="做空">做空</option>
+            </select>
+          </label>
         </div>
 
         <div class="table-wrap">
