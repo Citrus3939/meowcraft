@@ -245,8 +245,12 @@ figure {
   align-content: end;
   padding: 92px 20px 22px;
   background:
+    linear-gradient(90deg, rgba(17, 17, 17, 0.82), rgba(17, 17, 17, 0.32)),
     linear-gradient(135deg, rgba(255, 106, 162, 0.22), transparent 54%),
+    url("assets/2.jpg"),
     linear-gradient(160deg, #141218, #28222d 50%, #111014);
+  background-position: center;
+  background-size: cover;
 }
 
 .sequence-card {
