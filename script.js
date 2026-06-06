@@ -3,6 +3,9 @@ const toast = document.querySelector("#toast");
 const heroVideo = document.querySelector(".hero-video");
 const videoFrame = document.querySelector(".video-frame");
 const backToTop = document.querySelector("#backToTop");
+const heroStoryItems = [...document.querySelectorAll(".hero-story li")];
+const processList = document.querySelector(".process-list");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function showToast(message) {
   if (!toast) return;
@@ -50,3 +53,47 @@ backToTop?.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+
+function activateHeroStoryItem(activeIndex) {
+  heroStoryItems.forEach((item, index) => {
+    item.classList.toggle("is-active", index === activeIndex);
+  });
+}
+
+function setupHeroStory() {
+  if (!heroStoryItems.length) return;
+
+  activateHeroStoryItem(0);
+
+  if (prefersReducedMotion) return;
+
+  let activeIndex = 0;
+
+  window.setInterval(() => {
+    activeIndex = (activeIndex + 1) % heroStoryItems.length;
+    activateHeroStoryItem(activeIndex);
+  }, 3200);
+}
+
+function setupProcessStory() {
+  if (!processList) return;
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    processList.classList.add("is-story-active");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      processList.classList.toggle("is-story-active", entry.isIntersecting);
+    },
+    {
+      threshold: 0.35,
+    },
+  );
+
+  observer.observe(processList);
+}
+
+setupHeroStory();
+setupProcessStory();

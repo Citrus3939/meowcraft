@@ -397,6 +397,81 @@ p {
   backdrop-filter: blur(16px);
 }
 
+.hero-story {
+  display: grid;
+  gap: 10px;
+  max-width: 920px;
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-story li {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+  transition:
+    border-color 360ms ease,
+    background-color 360ms ease,
+    transform 360ms ease;
+}
+
+.hero-story li::before {
+  position: absolute;
+  inset: auto 0 0;
+  height: 3px;
+  content: "";
+  background: linear-gradient(90deg, var(--accent), var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.hero-story li.is-active {
+  border-color: rgba(255, 182, 217, 0.68);
+  background: rgba(255, 255, 255, 0.13);
+  transform: translateY(-2px);
+}
+
+.hero-story li.is-active::before {
+  animation: storyProgress 3200ms linear forwards;
+}
+
+.hero-story span {
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.hero-story strong {
+  color: var(--surface);
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-story small {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+@keyframes storyProgress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .text-link {
   display: inline-flex;
   width: fit-content;
@@ -507,6 +582,14 @@ p {
 .work-card {
   overflow: hidden;
   border-radius: var(--radius-lg);
+  transition:
+    box-shadow 240ms ease,
+    transform 240ms ease;
+}
+
+.work-card:hover {
+  box-shadow: var(--shadow-strong);
+  transform: translateY(-4px);
 }
 
 .work-media-row {
@@ -514,6 +597,7 @@ p {
   grid-template-columns: repeat(3, 1fr);
   min-height: 250px;
   border-bottom: 1px solid var(--line);
+  background: #111111;
 }
 
 .media-slot,
@@ -583,6 +667,31 @@ p {
     var(--asset-url);
   background-position: center;
   background-size: cover;
+}
+
+.work-card .media-slot {
+  transition:
+    filter 320ms ease,
+    transform 320ms ease,
+    opacity 320ms ease;
+}
+
+.work-card:hover .media-slot {
+  opacity: 0.72;
+  filter: saturate(0.72);
+  transform: scale(0.98);
+}
+
+.work-card:hover .media-slot.result {
+  z-index: 1;
+  opacity: 1;
+  filter: saturate(1.1) contrast(1.04);
+  transform: scale(1.04);
+}
+
+.work-card:hover .media-slot.result span {
+  background: rgba(17, 17, 17, 0.55);
+  box-shadow: 0 12px 34px rgba(17, 17, 17, 0.2);
 }
 
 [data-asset="assets/3.jpg"] {
@@ -699,6 +808,7 @@ p {
 }
 
 .process-list {
+  position: relative;
   display: grid;
   gap: 14px;
   margin: 0;
@@ -707,11 +817,97 @@ p {
   counter-reset: process;
 }
 
+.process-list::before,
+.process-list::after {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  content: "";
+  background: var(--line);
+}
+
+.process-list::after {
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.process-list.is-story-active::after {
+  transform: scaleY(1);
+}
+
 .process-list li {
   position: relative;
+  z-index: 1;
   padding: 24px;
   border-top: 1px solid var(--line);
   counter-increment: process;
+  transition:
+    opacity 420ms ease,
+    transform 420ms ease;
+}
+
+.process-list li::before {
+  position: absolute;
+  left: 1px;
+  top: 28px;
+  display: grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  content: "";
+  background: var(--background);
+  transition:
+    border-color 420ms ease,
+    background-color 420ms ease,
+    box-shadow 420ms ease;
+}
+
+.process-list.is-story-active li {
+  animation: processStepReveal 580ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.process-list.is-story-active li::before {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 6px rgba(124, 108, 255, 0.1);
+}
+
+.process-list.is-story-active li:nth-child(1) {
+  animation-delay: 80ms;
+}
+
+.process-list.is-story-active li:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.process-list.is-story-active li:nth-child(3) {
+  animation-delay: 280ms;
+}
+
+.process-list.is-story-active li:nth-child(4) {
+  animation-delay: 380ms;
+}
+
+.process-list.is-story-active li:nth-child(5) {
+  animation-delay: 480ms;
+}
+
+@keyframes processStepReveal {
+  from {
+    opacity: 0.58;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .process-list span {
@@ -1171,6 +1367,10 @@ textarea:focus {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .hero-story {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .three-col,
   .tier-grid,
   .testimonial-grid,
@@ -1190,6 +1390,31 @@ textarea:focus {
     min-height: 260px;
     border-top: 0;
     border-left: 1px solid var(--line);
+  }
+
+  .process-list::before,
+  .process-list::after {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 2px;
+  }
+
+  .process-list::after {
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .process-list.is-story-active::after {
+    transform: scaleX(1);
+  }
+
+  .process-list li::before {
+    top: -9px;
+    left: 24px;
   }
 
   .workshop-grid {
@@ -1310,5 +1535,32 @@ textarea:focus {
 
   .media-slot {
     min-height: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-story li,
+  .work-card,
+  .work-card .media-slot,
+  .process-list::after,
+  .process-list li,
+  .process-list li::before {
+    animation: none;
+    transition: none;
+  }
+
+  .hero-story li.is-active::before {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .process-list::after {
+    transform: none;
+  }
+
+  .work-card:hover,
+  .work-card:hover .media-slot,
+  .work-card:hover .media-slot.result {
+    transform: none;
   }
 }
