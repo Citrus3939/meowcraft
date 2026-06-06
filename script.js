@@ -3,6 +3,21 @@ const toast = document.querySelector("#toast");
 const heroVideo = document.querySelector(".hero-video");
 const videoFrame = document.querySelector(".video-frame");
 const backToTop = document.querySelector("#backToTop");
+const slideTextSelector = [
+  ".hero-lead",
+  ".section-header > p:not(.eyebrow)",
+  ".feature-card p",
+  ".work-card > p",
+  ".process-list p",
+  ".tier-card > p:not(.tier-label)",
+  ".workshop-card > p",
+  ".testimonial-card > p",
+  ".faq-list details > p",
+  ".consultation-layout > div > p:not(.eyebrow)",
+  ".form-note",
+  ".footer-grid > p",
+  ".contact-note",
+].join(",");
 
 function showToast(message) {
   if (!toast) return;
@@ -50,3 +65,52 @@ backToTop?.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+
+function setupSlideTextAnimations() {
+  const slideTextItems = [...document.querySelectorAll(slideTextSelector)];
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!slideTextItems.length) return;
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    slideTextItems.forEach((item) => {
+      item.classList.add("slide-copy", "is-slide-visible");
+    });
+    return;
+  }
+
+  slideTextItems.forEach((item, index) => {
+    item.classList.add("slide-copy");
+    item.style.transitionDelay = `${Math.min(index % 3, 2) * 70}ms`;
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const item = entry.target;
+
+        if (entry.isIntersecting) {
+          item.classList.add("is-slide-visible");
+          item.classList.remove("is-slide-out");
+          return;
+        }
+
+        item.classList.remove("is-slide-visible");
+
+        if (entry.boundingClientRect.top < 0) {
+          item.classList.add("is-slide-out");
+        } else {
+          item.classList.remove("is-slide-out");
+        }
+      });
+    },
+    {
+      threshold: 0.22,
+      rootMargin: "0px 0px -8% 0px",
+    },
+  );
+
+  slideTextItems.forEach((item) => observer.observe(item));
+}
+
+setupSlideTextAnimations();

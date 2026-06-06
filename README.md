@@ -12,6 +12,7 @@ Meow Craft 是一个高端动漫角色假毛定制工作室首页原型，适合
 - 极简布局、大留白、柔和紫色点缀
 - 首屏支持背景视频
 - 作品、客户反馈和工作室幕后均优先使用真实照片 / 视频
+- 模块主体介绍文字带有滚动触发的 Slide In / Slide Out 动效
 
 ## 背景视频替换
 
@@ -92,3 +93,11 @@ http://localhost:8000
 - 替换客户反馈为真实客户照片、评论截图、Discord 截图
 - 将咨询表单接入 Shopify Forms、Klaviyo、Gorgias、Airtable 或自定义工作流
 - 补充 TikTok、Instagram、X 真实链接
+
+## 动效说明
+
+页面主体介绍文字使用 `IntersectionObserver` 实现滚动触发：
+
+- 进入视口：Slide In + Fade In
+- 离开视口：Slide Out + Fade Out
+- 如果用户系统开启“减少动态效果”，动效会自动关闭并直接显示文字
