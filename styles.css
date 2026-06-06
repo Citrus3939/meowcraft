@@ -574,7 +574,10 @@ p {
     #2c2531;
 }
 
-[data-asset] {
+.media-slot[data-asset],
+.media-fill[data-asset],
+.client-photo[data-asset],
+.discord-shot[data-asset] {
   background-image:
     linear-gradient(135deg, rgba(17, 17, 17, 0.34), rgba(124, 108, 255, 0.18)),
     var(--asset-url);
