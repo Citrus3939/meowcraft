@@ -6,21 +6,21 @@
   --icy-blue: #bde0fe;
   --sky-blue: #a2d2ff;
   --background: #fffafd;
-  --surface: #fffefe;
-  --surface-soft: #f9f2fb;
-  --primary: #725984;
-  --primary-dark: #4e3b5d;
+  --surface: #ffffff;
+  --surface-soft: #f7edf9;
+  --primary: #8a6fa1;
+  --primary-dark: #5f4774;
   --accent: var(--baby-pink);
   --accent-soft: var(--pastel-petal);
   --blue-soft: var(--icy-blue);
   --blue: var(--sky-blue);
-  --text: #1e1724;
-  --muted: #625766;
-  --muted-strong: #3a2f40;
-  --line: #eadfe9;
-  --line-strong: #d5c2dc;
-  --shadow: 0 24px 70px rgba(78, 59, 93, 0.08);
-  --shadow-strong: 0 28px 90px rgba(78, 59, 93, 0.15);
+  --text: #111111;
+  --muted: #62606a;
+  --muted-strong: #3b3942;
+  --line: #eaddea;
+  --line-strong: #d9c2df;
+  --shadow: 0 24px 70px rgba(95, 71, 116, 0.08);
+  --shadow-strong: 0 28px 90px rgba(95, 71, 116, 0.16);
   --radius-xs: 10px;
   --radius-sm: 16px;
   --radius-md: 24px;
@@ -53,9 +53,9 @@ body::before {
   pointer-events: none;
   content: "";
   background:
-    radial-gradient(circle at 84% 8%, rgba(162, 210, 255, 0.28), transparent 30rem),
-    radial-gradient(circle at 12% 26%, rgba(255, 200, 221, 0.3), transparent 26rem),
-    radial-gradient(circle at 64% 72%, rgba(205, 180, 219, 0.16), transparent 26rem);
+    radial-gradient(circle at 84% 8%, rgba(162, 210, 255, 0.42), transparent 28rem),
+    radial-gradient(circle at 12% 26%, rgba(255, 200, 221, 0.42), transparent 24rem),
+    radial-gradient(circle at 64% 72%, rgba(205, 180, 219, 0.22), transparent 24rem);
 }
 
 a {
@@ -114,10 +114,10 @@ figure {
   align-items: center;
   width: min(var(--shell), calc(100% - 24px));
   padding: 12px;
-  border: 1px solid rgba(234, 223, 233, 0.86);
+  border: 1px solid rgba(232, 230, 240, 0.82);
   border-radius: 999px;
-  background: rgba(255, 254, 254, 0.84);
-  box-shadow: 0 18px 50px rgba(78, 59, 93, 0.08);
+  background: rgba(250, 250, 252, 0.84);
+  box-shadow: 0 18px 50px rgba(22, 19, 39, 0.08);
   backdrop-filter: blur(22px);
   transform: translateX(-50%);
 }
@@ -195,7 +195,7 @@ figure {
   display: grid;
   min-height: 100svh;
   overflow: hidden;
-  background: #1e1724;
+  background: #111111;
   isolation: isolate;
 }
 
@@ -238,8 +238,8 @@ figure {
   pointer-events: none;
   content: "";
   background:
-    linear-gradient(90deg, rgba(30, 23, 36, 0.86) 0%, rgba(30, 23, 36, 0.58) 46%, rgba(30, 23, 36, 0.2) 100%),
-    linear-gradient(0deg, rgba(30, 23, 36, 0.58), rgba(30, 23, 36, 0.08) 48%, rgba(30, 23, 36, 0.48));
+    linear-gradient(90deg, rgba(17, 17, 17, 0.86) 0%, rgba(17, 17, 17, 0.56) 46%, rgba(17, 17, 17, 0.18) 100%),
+    linear-gradient(0deg, rgba(17, 17, 17, 0.58), rgba(17, 17, 17, 0.08) 48%, rgba(17, 17, 17, 0.48));
 }
 
 .video-fallback {
@@ -253,7 +253,7 @@ figure {
   padding: 92px 20px 22px;
   background:
     linear-gradient(135deg, rgba(255, 175, 204, 0.28), transparent 54%),
-    linear-gradient(160deg, #1e1724, #35283e 50%, #1a141f);
+    linear-gradient(160deg, #17151f, #2b2230 50%, #151419);
 }
 
 .sequence-card {
@@ -542,7 +542,7 @@ p {
   text-transform: uppercase;
   background:
     linear-gradient(135deg, rgba(205, 180, 219, 0.72), rgba(162, 210, 255, 0.4)),
-    #35283e;
+    #2b2230;
 }
 
 .media-slot::after,
@@ -567,8 +567,8 @@ p {
 
 .media-slot.reference {
   background:
-    linear-gradient(135deg, rgba(30, 23, 36, 0.66), rgba(205, 180, 219, 0.32)),
-    #1e1724;
+    linear-gradient(135deg, rgba(17, 17, 17, 0.66), rgba(205, 180, 219, 0.32)),
+    #1b1923;
 }
 
 .media-slot.progress {
@@ -588,7 +588,7 @@ p {
 .client-photo[data-asset],
 .discord-shot[data-asset] {
   background-image:
-    linear-gradient(135deg, rgba(30, 23, 36, 0.34), rgba(205, 180, 219, 0.2)),
+    linear-gradient(135deg, rgba(17, 17, 17, 0.34), rgba(205, 180, 219, 0.2)),
     var(--asset-url);
   background-position: center;
   background-size: cover;
@@ -824,7 +824,7 @@ p {
 }
 
 .testimonials {
-  background: #1e1724;
+  background: #111111;
 }
 
 .testimonials .section-header h2,
@@ -869,7 +869,7 @@ blockquote {
   margin-bottom: 22px;
   padding: 28px;
   border-radius: var(--radius-md);
-  background: #35283e;
+  background: #2b2230;
 }
 
 .discord-shot p {
@@ -1002,7 +1002,7 @@ textarea:focus {
   background:
     radial-gradient(circle at 50% 0%, rgba(255, 200, 221, 0.32), transparent 25rem),
     radial-gradient(circle at 82% 28%, rgba(162, 210, 255, 0.16), transparent 24rem),
-    linear-gradient(135deg, #1e1724, #35283e 58%, #1e1724);
+    linear-gradient(135deg, #111111, #2b2230 58%, #111111);
 }
 
 .final-cta h2 {
@@ -1096,7 +1096,7 @@ textarea:focus {
   border: 1px solid rgba(205, 180, 219, 0.3);
   border-radius: var(--radius-sm);
   color: var(--surface);
-  background: #1e1724;
+  background: #111111;
   box-shadow: var(--shadow-strong);
 }
 
@@ -1115,8 +1115,8 @@ textarea:focus {
   color: var(--surface);
   cursor: pointer;
   font-weight: 800;
-  background: rgba(30, 23, 36, 0.9);
-  box-shadow: 0 18px 50px rgba(30, 23, 36, 0.2);
+  background: rgba(17, 17, 17, 0.9);
+  box-shadow: 0 18px 50px rgba(17, 17, 17, 0.2);
   opacity: 0;
   pointer-events: none;
   transform: translateY(16px);
