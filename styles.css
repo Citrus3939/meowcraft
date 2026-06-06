@@ -196,6 +196,11 @@ figure {
   z-index: -2;
 }
 
+.video-frame {
+  position: relative;
+  overflow: hidden;
+}
+
 .video-frame,
 .hero-video,
 .video-fallback {
@@ -204,13 +209,24 @@ figure {
 }
 
 .hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: block;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 360ms ease;
+}
+
+.video-frame.is-video-ready .hero-video {
+  opacity: 1;
 }
 
 .video-frame::after {
   position: absolute;
   inset: 0;
+  z-index: 2;
+  pointer-events: none;
   content: "";
   background:
     linear-gradient(90deg, rgba(17, 17, 17, 0.86) 0%, rgba(17, 17, 17, 0.56) 46%, rgba(17, 17, 17, 0.18) 100%),
@@ -218,6 +234,9 @@ figure {
 }
 
 .video-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
