@@ -316,11 +316,18 @@ p {
 h1,
 h2,
 h3 {
-  font-family: "Poppins", sans-serif;
-  letter-spacing: -0.045em;
+  font-family:
+    "Inter",
+    "PingFang SC",
+    "Hiragino Sans GB",
+    "Microsoft YaHei",
+    "Noto Sans CJK SC",
+    sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   text-wrap: balance;
-  word-break: keep-all;
-  overflow-wrap: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 h1 {
@@ -333,8 +340,8 @@ h1 {
 h2 {
   max-width: 850px;
   margin-bottom: 0;
-  font-size: clamp(2.1rem, 7.5vw, 5.1rem);
-  line-height: 1;
+  font-size: clamp(2rem, 6.2vw, 4.45rem);
+  line-height: 1.06;
 }
 
 h3 {
@@ -447,6 +454,17 @@ p {
 
 .section-header {
   margin-bottom: clamp(32px, 6vw, 56px);
+}
+
+.section-header > div {
+  min-width: 0;
+}
+
+.section-header.split h2 {
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(2rem, 4.8vw, 3.9rem);
+  line-height: 1.1;
 }
 
 .section-header p:not(.eyebrow) {
@@ -1259,7 +1277,7 @@ textarea:focus {
   }
 
   .section-header.split p:not(.eyebrow) {
-    margin-top: 44px;
+    margin-top: 16px;
   }
 
   .section-header.centered {
