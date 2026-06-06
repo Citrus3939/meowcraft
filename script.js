@@ -2,6 +2,7 @@ const consultationForm = document.querySelector("#consultationForm");
 const toast = document.querySelector("#toast");
 const heroVideo = document.querySelector(".hero-video");
 const videoFrame = document.querySelector(".video-frame");
+const backToTop = document.querySelector("#backToTop");
 
 function showToast(message) {
   if (!toast) return;
@@ -32,4 +33,20 @@ heroVideo?.addEventListener("canplay", () => {
 
 heroVideo?.addEventListener("error", () => {
   videoFrame?.classList.remove("is-video-ready");
+});
+
+function updateBackToTopVisibility() {
+  if (!backToTop) return;
+
+  backToTop.classList.toggle("is-visible", window.scrollY > 520);
+}
+
+window.addEventListener("scroll", updateBackToTopVisibility, { passive: true });
+updateBackToTopVisibility();
+
+backToTop?.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 });

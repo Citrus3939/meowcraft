@@ -18,8 +18,8 @@ Meow Craft 是一个高端动漫角色假毛定制工作室首页原型，适合
 首屏视频在 `index.html` 中：
 
 ```html
-<source src="assets/hero-video.webm" type="video/webm" />
-<source src="assets/hero-video.mp4" type="video/mp4" />
+<source src="assets/1.webm" type="video/webm" />
+<source src="assets/1.mp4" type="video/mp4" />
 ```
 
 你可以手动修改 `src`：
@@ -37,6 +37,24 @@ Meow Craft 是一个高端动漫角色假毛定制工作室首页原型，适合
 - 可同时提供 `.webm` 和 `.mp4`，浏览器会优先选择支持的格式
 
 如果视频未加载成功，页面会自动显示首屏的静态流程占位背景。
+
+## 素材编号
+
+所有页面媒体位已按从上到下、从左到右的顺序编号，详见：
+
+```text
+ASSETS.md
+```
+
+后期替换时，可以直接把文件放入 `assets/` 并按编号命名，例如：
+
+```text
+assets/3.jpg
+assets/4.jpg
+assets/5.jpg
+```
+
+当前 CSS 已为 `assets/3.jpg` 到 `assets/27.jpg` 配置背景图读取规则；文件存在后会自动显示。
 
 ## 页面结构
 

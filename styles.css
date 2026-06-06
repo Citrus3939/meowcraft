@@ -287,11 +287,11 @@ figure {
 .eyebrow {
   display: inline-flex;
   width: fit-content;
-  margin: 0 0 18px;
+  margin: 0 0 20px;
   color: var(--primary);
-  font-size: 0.74rem;
+  font-size: clamp(0.94rem, 1.7vw, 1.08rem);
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -443,6 +443,8 @@ p {
 .section-header p:not(.eyebrow) {
   max-width: 620px;
   margin: 16px 0 0;
+  font-size: clamp(1.03rem, 1.7vw, 1.2rem);
+  line-height: 1.8;
 }
 
 .section-header.centered {
@@ -479,7 +481,7 @@ p {
   display: inline-flex;
   margin-bottom: 34px;
   color: var(--primary);
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -524,7 +526,7 @@ p {
   min-height: 100%;
   place-items: center;
   color: rgba(255, 255, 255, 0.88);
-  font-size: 0.72rem;
+  font-size: clamp(0.82rem, 1.4vw, 0.98rem);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-align: center;
@@ -551,6 +553,7 @@ p {
 .discord-shot span {
   position: relative;
   z-index: 1;
+  padding: 0 12px;
 }
 
 .media-slot.reference {
@@ -569,6 +572,114 @@ p {
   background:
     linear-gradient(135deg, rgba(255, 182, 217, 0.54), rgba(124, 108, 255, 0.42)),
     #2c2531;
+}
+
+[data-asset] {
+  background-image:
+    linear-gradient(135deg, rgba(17, 17, 17, 0.34), rgba(124, 108, 255, 0.18)),
+    var(--asset-url);
+  background-position: center;
+  background-size: cover;
+}
+
+[data-asset="assets/3.jpg"] {
+  --asset-url: url("assets/3.jpg");
+}
+
+[data-asset="assets/4.jpg"] {
+  --asset-url: url("assets/4.jpg");
+}
+
+[data-asset="assets/5.jpg"] {
+  --asset-url: url("assets/5.jpg");
+}
+
+[data-asset="assets/6.jpg"] {
+  --asset-url: url("assets/6.jpg");
+}
+
+[data-asset="assets/7.jpg"] {
+  --asset-url: url("assets/7.jpg");
+}
+
+[data-asset="assets/8.jpg"] {
+  --asset-url: url("assets/8.jpg");
+}
+
+[data-asset="assets/9.jpg"] {
+  --asset-url: url("assets/9.jpg");
+}
+
+[data-asset="assets/10.jpg"] {
+  --asset-url: url("assets/10.jpg");
+}
+
+[data-asset="assets/11.jpg"] {
+  --asset-url: url("assets/11.jpg");
+}
+
+[data-asset="assets/12.jpg"] {
+  --asset-url: url("assets/12.jpg");
+}
+
+[data-asset="assets/13.jpg"] {
+  --asset-url: url("assets/13.jpg");
+}
+
+[data-asset="assets/14.jpg"] {
+  --asset-url: url("assets/14.jpg");
+}
+
+[data-asset="assets/15.jpg"] {
+  --asset-url: url("assets/15.jpg");
+}
+
+[data-asset="assets/16.jpg"] {
+  --asset-url: url("assets/16.jpg");
+}
+
+[data-asset="assets/17.jpg"] {
+  --asset-url: url("assets/17.jpg");
+}
+
+[data-asset="assets/18.jpg"] {
+  --asset-url: url("assets/18.jpg");
+}
+
+[data-asset="assets/19.jpg"] {
+  --asset-url: url("assets/19.jpg");
+}
+
+[data-asset="assets/20.jpg"] {
+  --asset-url: url("assets/20.jpg");
+}
+
+[data-asset="assets/21.jpg"] {
+  --asset-url: url("assets/21.jpg");
+}
+
+[data-asset="assets/22.jpg"] {
+  --asset-url: url("assets/22.jpg");
+}
+
+[data-asset="assets/23.jpg"] {
+  --asset-url: url("assets/23.jpg");
+}
+
+[data-asset="assets/24.jpg"] {
+  --asset-url: url("assets/24.jpg");
+}
+
+[data-asset="assets/25.jpg"] {
+  --asset-url: url("assets/25.jpg");
+}
+
+[data-asset="assets/26.jpg"] {
+  --asset-url: url("assets/26.jpg");
+}
+
+[data-asset="assets/27.jpg"] {
+  --asset-url: url("assets/27.jpg");
 }
 
 .work-card h3,
@@ -604,7 +715,7 @@ p {
   display: inline-flex;
   margin-bottom: 18px;
   color: var(--primary);
-  font-size: 0.76rem;
+  font-size: 0.94rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -887,26 +998,79 @@ textarea:focus {
 }
 
 .site-footer {
-  padding-block: 36px;
+  padding-block: 44px;
   background: var(--surface);
 }
 
 .footer-grid {
   display: grid;
   gap: 22px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid var(--line);
 }
 
 .footer-grid p {
   margin-bottom: 0;
 }
 
-.social-links span {
-  padding: 8px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+.footer-contact {
+  display: grid;
+  gap: 26px;
+  padding-top: 34px;
+}
+
+.footer-kicker {
+  margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.footer-contact h2 {
+  max-width: 680px;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+}
+
+.contact-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-list li {
+  display: grid;
+  gap: 6px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-list span {
   color: var(--muted);
-  font-size: 0.84rem;
-  font-weight: 700;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact-list a {
+  width: fit-content;
+  color: var(--text);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 800;
+}
+
+.contact-list a:hover {
+  color: var(--primary);
+}
+
+.contact-note {
+  max-width: 720px;
+  margin: 0;
+  font-size: 0.95rem;
 }
 
 .toast {
@@ -921,6 +1085,43 @@ textarea:focus {
   color: var(--surface);
   background: #111111;
   box-shadow: var(--shadow-strong);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 35;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 16px;
+  border: 1px solid rgba(124, 108, 255, 0.22);
+  border-radius: 999px;
+  color: var(--surface);
+  cursor: pointer;
+  font-weight: 800;
+  background: rgba(17, 17, 17, 0.9);
+  box-shadow: 0 18px 50px rgba(17, 17, 17, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+  backdrop-filter: blur(16px);
+}
+
+.back-to-top span {
+  color: var(--accent);
+  font-size: 1.08rem;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 @media (min-width: 680px) {
@@ -997,8 +1198,21 @@ textarea:focus {
   }
 
   .footer-grid {
-    grid-template-columns: 1fr 1.2fr auto;
+    grid-template-columns: 1fr 1.2fr;
     align-items: center;
+  }
+
+  .footer-contact {
+    grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1fr);
+    align-items: start;
+  }
+
+  .contact-list {
+    grid-column: 2;
+  }
+
+  .contact-note {
+    grid-column: 2;
   }
 }
 
