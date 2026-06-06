@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Meow Craft 是面向北美 Cosplayer 的高端动漫角色假毛定制工作室，专注角色还原、手工造型和一对一沟通。"
+    />
+    <title>Meow Craft | 动漫角色假毛定制工作室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳转到主要内容</a>
+
+    <header class="site-header" aria-label="网站头部">
+      <a class="brand" href="#top" aria-label="Meow Craft 首页">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M10 21.5 7 9l10.5 7.2A19 19 0 0 1 24 15c2.4 0 4.6.4 6.5 1.2L41 9l-3 12.5c2.3 2.7 3.5 6.1 3.5 10C41.5 39 34.6 43 24 43S6.5 39 6.5 31.5c0-3.9 1.2-7.3 3.5-10Z" />
+            <path d="M18 30h.01M30 30h.01M20 36c1.3 1.1 2.6 1.6 4 1.6s2.7-.5 4-1.6" />
+          </svg>
+        </span>
+        <span>
+          <strong>Meow Craft</strong>
+          <small>动漫角色假毛定制工作室</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#work">作品</a>
+        <a href="#process">流程</a>
+        <a href="#services">服务</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <a class="header-cta" href="#consultation">开始定制咨询</a>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <div class="hero-media" aria-label="首屏背景视频">
+          <div class="video-frame">
+            <video
+              class="hero-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="assets/2.jpg"
+              aria-label="从角色参考图到最终 Cosplay 成果的工作室视频"
+            >
+              <!--
+                你可以手动替换下面的 source：
+                1. 首屏背景视频按素材 1 命名，可使用 assets/1.webm 或 assets/1.mp4
+                2. 视频封面图按素材 2 命名：assets/2.jpg
+                3. 推荐使用压缩后的 10-20 秒静音循环视频
+                4. 视频内容建议：角色参考图 -> 假毛结构制作 -> 造型过程 -> Cosplayer 成果
+              -->
+              <source src="assets/1.webm" type="video/webm" />
+              <source src="assets/1.mp4" type="video/mp4" />
+            </video>
+
+            <div class="video-fallback" aria-hidden="true">
+              <div class="sequence-card active">
+                <span>01</span>
+                <strong>角色参考</strong>
+              </div>
+              <div class="sequence-card">
+                <span>02</span>
+                <strong>假毛结构</strong>
+              </div>
+              <div class="sequence-card">
+                <span>03</span>
+                <strong>造型过程</strong>
+              </div>
+              <div class="sequence-card">
+                <span>04</span>
+                <strong>最终成片</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-content section-shell">
+          <p class="eyebrow">高端动漫假毛定制</p>
+          <h1 id="hero-title">让幻想拥有真实的形状。</h1>
+          <p class="hero-lead">
+            为全球 Coser 提供更还原的假毛定制服务。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#consultation">开始定制咨询</a>
+            <a class="button secondary" href="#work">查看作品案例</a>
+          </div>
+          <dl class="trust-strip" aria-label="工作室信任信息">
+            <div>
+              <dt>$199-$599</dt>
+              <dd>常见定制预算区间</dd>
+            </div>
+            <div>
+              <dt>美国 & 加拿大</dt>
+              <dd>面向北美 Cosplayer 服务</dd>
+            </div>
+            <div>
+              <dt>先确认再完成</dt>
+              <dd>制作过程中提供反馈与确认</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="why section-pad" aria-labelledby="why-title">
+        <div class="section-shell">
+          <div class="section-header">
+            <p class="eyebrow">为什么选择 Meow Craft</p>
+            <h2 id="why-title">我们做的是角色还原流程，不是库存商品。</h2>
+          </div>
+
+          <div class="three-col">
+            <article class="feature-card">
+              <span class="feature-number">01</span>
+              <h3>角色准确度</h3>
+              <p>每顶假毛都围绕角色设定、正侧面轮廓和关键发型特征制作，而不是套用量产模板。</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-number">02</span>
+              <h3>手工工艺</h3>
+              <p>由理解造型轮廓、发量控制、支撑结构和镜头表现的假毛造型师手工完成。</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-number">03</span>
+              <h3>清晰沟通</h3>
+              <p>制作过程中提供进度照片和确认节点，让定制过程更透明，也更接近你的预期。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="featured-work section-pad" id="work" aria-labelledby="work-title">
+        <div class="section-shell">
+          <div class="section-header split">
+            <div>
+              <p class="eyebrow">精选作品</p>
+              <h2 id="work-title">参考图、制作过程、最终效果。</h2>
+            </div>
+            <p>
+              每个案例都应该展示从角色分析到可佩戴成品的完整转化过程。上线时建议使用真实照片和短视频，而不是插画或通用素材。
+            </p>
+          </div>
+
+          <div class="work-grid">
+            <article class="work-card">
+              <div class="work-media-row">
+                <figure class="media-slot reference" data-asset="assets/3.jpg"><span>素材 3｜参考图</span></figure>
+                <figure class="media-slot progress" data-asset="assets/4.jpg"><span>素材 4｜制作中</span></figure>
+                <figure class="media-slot result" data-asset="assets/5.jpg"><span>素材 5｜最终效果</span></figure>
+              </div>
+              <h3>偶像系双马尾定制</h3>
+              <p>发尾弧度、蓬松度控制、蝴蝶结固定和可拍摄角度优化。</p>
+            </article>
+            <article class="work-card">
+              <div class="work-media-row">
+                <figure class="media-slot reference" data-asset="assets/6.jpg"><span>素材 6｜参考图</span></figure>
+                <figure class="media-slot progress" data-asset="assets/7.jpg"><span>素材 7｜制作中</span></figure>
+                <figure class="media-slot result" data-asset="assets/8.jpg"><span>素材 8｜最终效果</span></figure>
+              </div>
+              <h3>幻想战斗角色层次造型</h3>
+              <p>层次剪裁、发量调整、侧面轮廓和角色识别度处理。</p>
+            </article>
+            <article class="work-card">
+              <div class="work-media-row">
+                <figure class="media-slot reference" data-asset="assets/9.jpg"><span>素材 9｜参考图</span></figure>
+                <figure class="media-slot progress" data-asset="assets/10.jpg"><span>素材 10｜制作中</span></figure>
+                <figure class="media-slot result" data-asset="assets/11.jpg"><span>素材 11｜最终效果</span></figure>
+              </div>
+              <h3>渐变色角色假毛</h3>
+              <p>配色规划、发尾过渡、刘海分束和镜头下的颜色表现。</p>
+            </article>
+            <article class="work-card">
+              <div class="work-media-row">
+                <figure class="media-slot reference" data-asset="assets/12.jpg"><span>素材 12｜参考图</span></figure>
+                <figure class="media-slot progress" data-asset="assets/13.jpg"><span>素材 13｜制作中</span></figure>
+                <figure class="media-slot result" data-asset="assets/14.jpg"><span>素材 14｜最终效果</span></figure>
+              </div>
+              <h3>高支撑呆毛结构</h3>
+              <p>隐藏支撑、轻量化定型、长时间活动和展会佩戴稳定性。</p>
+            </article>
+            <article class="work-card">
+              <div class="work-media-row">
+                <figure class="media-slot reference" data-asset="assets/15.jpg"><span>素材 15｜参考图</span></figure>
+                <figure class="media-slot progress" data-asset="assets/16.jpg"><span>素材 16｜制作中</span></figure>
+                <figure class="media-slot result" data-asset="assets/17.jpg"><span>素材 17｜最终效果</span></figure>
+              </div>
+              <h3>短发角色准确度研究</h3>
+              <p>脸侧修饰、头顶蓬度、发际边缘和干净的角色轮廓。</p>
+            </article>
+            <article class="work-card">
+              <div class="work-media-row">
+                <figure class="media-slot reference" data-asset="assets/18.jpg"><span>素材 18｜参考图</span></figure>
+                <figure class="media-slot progress" data-asset="assets/19.jpg"><span>素材 19｜制作中</span></figure>
+                <figure class="media-slot result" data-asset="assets/20.jpg"><span>素材 20｜最终效果</span></figure>
+              </div>
+              <h3>摄影 / 舞台级造型</h3>
+              <p>为拍摄、舞台和长时间佩戴加强结构与定型完成度。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="process section-pad" id="process" aria-labelledby="process-title">
+        <div class="section-shell">
+          <div class="section-header centered">
+            <p class="eyebrow">定制流程</p>
+            <h2 id="process-title">从角色参考到最终确认，每一步都清晰可追踪。</h2>
+          </div>
+
+          <ol class="process-list">
+            <li>
+              <span>Step 1</span>
+              <h3>提交参考资料</h3>
+              <p>发送角色图、Cosplay 目标、活动日期，以及你最在意的造型细节。</p>
+            </li>
+            <li>
+              <span>Step 2</span>
+              <h3>定制咨询</h3>
+              <p>我们会评估还原重点、制作方式、预算区间、材料选择和排期方向。</p>
+            </li>
+            <li>
+              <span>Step 3</span>
+              <h3>手工制作</h3>
+              <p>根据确认方案进行剪裁、分层、支撑、定型和细节处理。</p>
+            </li>
+            <li>
+              <span>Step 4</span>
+              <h3>进度确认</h3>
+              <p>关键节点提供照片反馈，在最终定型前沟通合理调整。</p>
+            </li>
+            <li>
+              <span>Step 5</span>
+              <h3>包装发出</h3>
+              <p>完成后进行安全包装，并提供佩戴、整理和收纳建议。</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="services section-pad" id="services" aria-labelledby="services-title">
+        <div class="section-shell">
+          <div class="section-header split">
+            <div>
+              <p class="eyebrow">服务层级</p>
+              <h2 id="services-title">根据角色复杂度选择合适的工作室支持。</h2>
+            </div>
+            <p>
+              首页不强调固定价格，因为每个角色在结构、颜色、支撑和细节处理上都有不同需求。准确报价需要先看参考图。
+            </p>
+          </div>
+
+          <div class="tier-grid">
+            <article class="tier-card">
+              <p class="tier-label">Essential</p>
+              <h3>基础可佩戴</h3>
+              <p>适合较简单角色，或需要把普通假毛升级到更干净、可拍摄状态的 Cosplayer。</p>
+              <ul>
+                <li>基础假毛选择建议</li>
+                <li>干净剪裁与轮廓整理</li>
+                <li>基础造型与定型</li>
+                <li>佩戴和收纳建议</li>
+              </ul>
+              <a class="text-link" href="#consultation">申请报价</a>
+            </article>
+
+            <article class="tier-card highlighted">
+              <div class="badge">最受欢迎</div>
+              <p class="tier-label">Custom</p>
+              <h3>角色定制</h3>
+              <p>适合重视角色识别度、正侧面准确度和完整沟通体验的定制需求。</p>
+              <ul>
+                <li>基于参考图的造型方案</li>
+                <li>剪裁、造型与结构处理</li>
+                <li>进度照片与反馈沟通</li>
+                <li>最终完成前确认</li>
+              </ul>
+              <a class="button primary" href="#consultation">申请报价</a>
+            </article>
+
+            <article class="tier-card">
+              <p class="tier-label">Signature</p>
+              <h3>专业级制作</h3>
+              <p>适合复杂角色、摄影棚拍摄、舞台演出和高细节还原需求。</p>
+              <ul>
+                <li>高级发际线或发量处理</li>
+                <li>必要时制作内部支撑</li>
+                <li>细节强化与耐久度处理</li>
+                <li>更完整的咨询与审核流程</li>
+              </ul>
+              <a class="text-link" href="#consultation">申请报价</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="workshop section-pad" aria-labelledby="workshop-title">
+        <div class="section-shell">
+          <div class="section-header">
+            <p class="eyebrow">工作室幕后</p>
+            <h2 id="workshop-title">成品质感，来自每一个可见的工艺决定。</h2>
+          </div>
+
+          <div class="workshop-grid">
+            <article class="workshop-card large">
+              <div class="media-fill" data-asset="assets/21.jpg">素材 21｜假毛造型照片</div>
+              <h3>假毛造型</h3>
+              <p>在最终定型前，会综合考虑角色轮廓、头型比例、发束方向和镜头表现。</p>
+            </article>
+            <article class="workshop-card">
+              <div class="media-fill" data-asset="assets/22.jpg">素材 22｜发际线处理</div>
+              <h3>发际线制作</h3>
+              <p>对于露额头或发际线明显的角色，前缘处理会直接影响真实感和高级感。</p>
+            </article>
+            <article class="workshop-card">
+              <div class="media-fill" data-asset="assets/23.jpg">素材 23｜发量调整</div>
+              <h3>发量与蓬度调整</h3>
+              <p>控制蓬度和密度，让角色发型有存在感，但不显得廉价或过度厚重。</p>
+            </article>
+            <article class="workshop-card">
+              <div class="media-fill" data-asset="assets/24.jpg">素材 24｜细节制作</div>
+              <h3>细节处理</h3>
+              <p>刘海分束、发尾方向、隐藏支撑、配件固定和角色标志性形状都会单独处理。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="testimonials section-pad" aria-labelledby="testimonial-title">
+        <div class="section-shell">
+          <div class="section-header centered">
+            <p class="eyebrow">客户反馈</p>
+            <h2 id="testimonial-title">为重视沟通和完成度的 Cosplayer 制作。</h2>
+          </div>
+
+          <div class="testimonial-grid">
+            <article class="testimonial-card">
+              <div class="client-photo" data-asset="assets/25.jpg">素材 25｜客户照片</div>
+              <blockquote>
+                “制作过程的照片反馈让我很放心。正面和侧面的角色还原都非常接近参考图。”
+              </blockquote>
+              <p>Cosplayer，Toronto</p>
+            </article>
+            <article class="testimonial-card">
+              <div class="client-photo" data-asset="assets/26.jpg">素材 26｜客户照片</div>
+              <blockquote>
+                “展会戴了一整天，造型依然很稳。最终确认环节真的很重要。”
+              </blockquote>
+              <p>Cosplayer，California</p>
+            </article>
+            <article class="testimonial-card discord">
+              <div class="discord-shot" data-asset="assets/27.jpg">
+                <span>素材 27｜Discord 截图</span>
+                <p>“这个蓬度正是我想要的效果，谢谢你们在最终定型前确认！”</p>
+              </div>
+              <blockquote>
+                “更新清晰、回复直接，整个定制过程没有猜测感。”
+              </blockquote>
+              <p>定制客户，USA</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq section-pad" id="faq" aria-labelledby="faq-title">
+        <div class="section-shell faq-layout">
+          <div class="section-header sticky-copy">
+            <p class="eyebrow">FAQ</p>
+            <h2 id="faq-title">开始定制前，你可能想知道这些。</h2>
+            <p>
+              这些回答用于建立基本预期。具体方案会在我们看过角色参考图和你的需求后确认。
+            </p>
+          </div>
+
+          <div class="faq-list">
+            <details open>
+              <summary>制作周期</summary>
+              <p>制作周期取决于角色复杂度、当前排期和材料情况。如有展会或拍摄日期，请在咨询表中提前说明。</p>
+            </details>
+            <details>
+              <summary>运输范围</summary>
+              <p>Meow Craft 主要面向美国和加拿大 Cosplayer。运输方式和包装方案会在最终发出前确认。</p>
+            </details>
+            <details>
+              <summary>修改与反馈</summary>
+              <p>制作过程中会提供进度照片，合理调整会在最终定型前沟通完成。</p>
+            </details>
+            <details>
+              <summary>特殊定制</summary>
+              <p>复杂发型、发际线处理、颜色匹配、发量结构、配件固定等都可以在咨询阶段评估。</p>
+            </details>
+            <details>
+              <summary>国际订单</summary>
+              <p>工作室重点服务美国和加拿大。其他地区可以视物流可行性和项目复杂度单独评估。</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="consultation section-pad" id="consultation" aria-labelledby="consultation-title">
+        <div class="section-shell consultation-layout">
+          <div>
+            <p class="eyebrow">定制咨询</p>
+            <h2 id="consultation-title">先从参考图、角色目标和你最在意的细节开始。</h2>
+            <p>
+              这是用于 Shopify 主题集成的咨询表单 Demo。正式上线时可以接入 Shopify Forms、Klaviyo、
+              Gorgias、Airtable 或自定义定制需求工作流。
+            </p>
+          </div>
+
+          <form class="consultation-form" id="consultationForm">
+            <div class="form-grid">
+              <label>
+                姓名 / 昵称
+                <input name="name" type="text" autocomplete="name" required />
+              </label>
+              <label>
+                邮箱
+                <input name="email" type="email" autocomplete="email" required />
+              </label>
+              <label>
+                所在国家
+                <select name="country" required>
+                  <option value="">请选择</option>
+                  <option>美国</option>
+                  <option>加拿大</option>
+                  <option>其他地区</option>
+                </select>
+              </label>
+              <label>
+                目标活动日期
+                <input name="eventDate" type="date" />
+              </label>
+              <label>
+                角色名
+                <input name="character" type="text" placeholder="角色名称" required />
+              </label>
+              <label>
+                作品名
+                <input name="series" type="text" placeholder="动画 / 游戏 / 原作" />
+              </label>
+            </div>
+
+            <label>
+              期望服务层级
+              <select name="tier" required>
+                <option value="">请选择</option>
+                <option>Essential - 基础可佩戴</option>
+                <option>Custom - 角色定制</option>
+                <option>Signature - 专业级制作</option>
+                <option>还不确定，需要建议</option>
+              </select>
+            </label>
+
+            <label>
+              参考图链接
+              <textarea name="references" rows="3" placeholder="可粘贴 Google Drive、Instagram、Pinterest、角色设定图链接等。"></textarea>
+            </label>
+
+            <label>
+              项目说明
+              <textarea name="notes" rows="4" placeholder="请说明你最在意的准确度、角度、发量、颜色、支撑或佩戴需求。"></textarea>
+            </label>
+
+            <button class="button primary" type="submit">开始定制咨询</button>
+            <p class="form-note">这里不是直接结账。我们会先通过咨询确认角色方案、制作难度和报价方向。</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="final-cta" aria-labelledby="final-title">
+        <div class="section-shell">
+          <p class="eyebrow">当角色准备登场</p>
+          <h2 id="final-title">让你的角色真正鲜活起来</h2>
+          <a class="button primary inverse" href="#consultation">开始定制咨询</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section-shell footer-grid">
+        <a class="brand" href="#top" aria-label="Meow Craft 首页">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M10 21.5 7 9l10.5 7.2A19 19 0 0 1 24 15c2.4 0 4.6.4 6.5 1.2L41 9l-3 12.5c2.3 2.7 3.5 6.1 3.5 10C41.5 39 34.6 43 24 43S6.5 39 6.5 31.5c0-3.9 1.2-7.3 3.5-10Z" />
+              <path d="M18 30h.01M30 30h.01M20 36c1.3 1.1 2.6 1.6 4 1.6s2.7-.5 4-1.6" />
+            </svg>
+          </span>
+          <span>
+            <strong>Meow Craft</strong>
+            <small>动漫角色假毛定制工作室</small>
+          </span>
+        </a>
+        <p>面向美国和加拿大 Cosplayer 的高端动漫角色假毛定制工作室。</p>
+      </div>
+
+      <div class="section-shell footer-contact" aria-label="海外社媒联系方式">
+        <div>
+          <p class="footer-kicker">海外社媒联系方式</p>
+          <h2>在你常用的平台找到 Meow Craft</h2>
+        </div>
+        <ul class="contact-list">
+          <li>
+            <span>TikTok</span>
+            <a href="https://www.tiktok.com/@meowcraftstudio" target="_blank" rel="noreferrer">@meowcraftstudio</a>
+          </li>
+          <li>
+            <span>Instagram</span>
+            <a href="https://www.instagram.com/meowcraftstudio" target="_blank" rel="noreferrer">@meowcraftstudio</a>
+          </li>
+          <li>
+            <span>X / Twitter</span>
+            <a href="https://x.com/meowcraftstudio" target="_blank" rel="noreferrer">@meowcraftstudio</a>
+          </li>
+          <li>
+            <span>Discord</span>
+            <a href="https://discord.gg/meowcraft" target="_blank" rel="noreferrer">discord.gg/meowcraft</a>
+          </li>
+          <li>
+            <span>Email</span>
+            <a href="mailto:hello@meowcraft.studio">hello@meowcraft.studio</a>
+          </li>
+        </ul>
+        <p class="contact-note">以上为占位联系方式，正式上线前可替换为真实账号、店铺链接或客服邮箱。</p>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <button class="back-to-top" id="backToTop" type="button" aria-label="回到页面顶部">
+      <span>↑</span>
+      回到顶部
+    </button>
+    <script src="script.js"></script>
+  </body>
+</html>
