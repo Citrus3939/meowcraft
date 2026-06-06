@@ -1,31 +1,46 @@
 # Meow Craft
 
-Meow Craft 是一个可爱二次元风格的 Cosplay 假毛订制工坊静态网页 Demo。
+Meow Craft is a premium anime wig customization studio homepage concept built as a fast static prototype.
 
-## 内容
+The page is designed for a Shopify storefront where the primary conversion is a consultation request, not direct checkout.
 
-- 随机简体猫图案 Logo
-- 假毛订制服务介绍
-- 定制流程与价格参考
-- 作品展示占位
-- 在线定制需求表单
-- 前端模拟订单查询
+## Homepage Strategy
 
-## 本地预览
+- Premium anime studio positioning
+- Mobile-first layout
+- Minimalist visual system with large whitespace
+- Soft purple and pink accents
+- Credibility-focused sections for character accuracy, craftsmanship, and communication
+- Consultation request form instead of product checkout
 
-直接用浏览器打开 `index.html` 即可预览。
+## Sections
 
-也可以在仓库目录运行一个静态服务器：
+- Full-screen hero video slot
+- Why Meow Craft
+- Featured Works grid with Reference / Work In Progress / Final Result slots
+- How It Works
+- Service Tiers
+- Inside the Workshop
+- Testimonials and Discord proof placeholders
+- FAQ
+- Final CTA
+- Consultation form
+
+## Local Preview
+
+Open `index.html` directly in a browser, or run a static server from the repository:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-然后访问 `http://localhost:8000`。
+Then visit `http://localhost:8000`.
 
-## 后续替换项
+## Production Replacement Notes
 
-- 将联系方式中的“待补充”替换为微信、QQ、邮箱、店铺链接或二维码
-- 将作品展示占位替换为真实作品图片
-- 将前端模拟表单接入后台、邮箱、飞书 / Notion / Google 表格等真实收集方式
-- 将订单查询接入真实数据库或后台管理系统
+- Replace the hero fallback with a compressed video sequence:
+  Character Reference -> Wig Construction -> Styling Process -> Final Cosplayer Result
+- Replace work placeholders with real project photos.
+- Replace testimonial placeholders with customer photos, review screenshots, and Discord screenshots.
+- Connect the consultation form to Shopify Forms, Klaviyo, Gorgias, Airtable, or a custom commission intake workflow.
+- Add real TikTok, Instagram, and X links in the footer.
