@@ -3,7 +3,7 @@
 请按下表编号替换 `assets/` 目录里的素材。页面中也已用 `data-asset` 和占位文字标注对应编号。
 
 > 建议图片优先使用 `.jpg` 或 `.webp`，视频优先使用压缩后的 `.mp4`，如条件允许可额外提供 `.webm`。
-> 当前已将 Release `assets-v1` 中的前 26 张图片优化并绑定为 `assets/2.jpg` 到 `assets/27.jpg`。`assets/1.mp4` / `assets/1.webm` 仍保留为后续首屏视频替换位。
+> 当前已将 Release `assets-v1` 中的视频绑定为 `assets/1.mp4`，并将前 26 张图片优化绑定为 `assets/2.jpg` 到 `assets/27.jpg`。如需 `.webm`，可后续额外添加。
 
 | 编号 | 建议文件名 | 页面位置 | 用途 / 内容建议 |
 | --- | --- | --- | --- |

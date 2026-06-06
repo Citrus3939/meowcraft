@@ -18,7 +18,6 @@ Meow Craft 是一个高端动漫角色假毛定制工作室首页原型，适合
 首屏视频在 `index.html` 中：
 
 ```html
-<source src="assets/1.webm" type="video/webm" />
 <source src="assets/1.mp4" type="video/mp4" />
 ```
 
@@ -34,7 +33,7 @@ Meow Craft 是一个高端动漫角色假毛定制工作室首页原型，适合
 - 使用 10-20 秒静音循环视频
 - 推荐内容顺序：角色参考图 -> 假毛结构制作 -> 造型过程 -> Cosplayer 成果
 - 建议压缩视频，避免首页加载过慢
-- 可同时提供 `.webm` 和 `.mp4`，浏览器会优先选择支持的格式
+- 如后续需要，也可以额外提供 `.webm` 格式并在 HTML 中增加对应 `<source>`
 
 如果视频未加载成功，页面会自动显示首屏的静态流程占位背景。
 

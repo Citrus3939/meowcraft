@@ -1,13 +1,13 @@
 :root {
   color-scheme: light;
-  --background: #fbfbfd;
+  --background: #fafafc;
   --surface: #ffffff;
-  --surface-soft: #f6f3f7;
-  --primary: #15131a;
-  --primary-dark: #050507;
-  --accent: #ff6aa2;
-  --accent-soft: #ffe5ef;
-  --violet-soft: #eee7f3;
+  --surface-soft: #f4f2ff;
+  --primary: #7c6cff;
+  --primary-dark: #5142da;
+  --accent: #ffb6d9;
+  --accent-soft: #ffe8f3;
+  --violet-soft: #eee8ff;
   --text: #111111;
   --muted: #5f5b64;
   --muted-strong: #2d2a31;
@@ -128,9 +128,9 @@ figure {
   height: 42px;
   flex: 0 0 42px;
   place-items: center;
-  border: 1px solid rgba(255, 106, 162, 0.24);
+  border: 1px solid rgba(124, 108, 255, 0.2);
   border-radius: 50%;
-  background: linear-gradient(145deg, #ffffff, #fff0f6);
+  background: linear-gradient(145deg, #ffffff, #f1efff);
 }
 
 .brand-mark svg {
@@ -246,9 +246,9 @@ figure {
   padding: 92px 20px 22px;
   background:
     linear-gradient(90deg, rgba(17, 17, 17, 0.82), rgba(17, 17, 17, 0.32)),
-    linear-gradient(135deg, rgba(255, 106, 162, 0.22), transparent 54%),
+    linear-gradient(135deg, rgba(124, 108, 255, 0.36), transparent 54%),
     url("assets/2.jpg"),
-    linear-gradient(160deg, #141218, #28222d 50%, #111014);
+    linear-gradient(160deg, #17151f, #26213c 50%, #151419);
   background-position: center;
   background-size: cover;
 }
@@ -267,8 +267,8 @@ figure {
 }
 
 .sequence-card.active {
-  border-color: rgba(255, 106, 162, 0.62);
-  background: rgba(255, 106, 162, 0.12);
+  border-color: rgba(255, 182, 217, 0.72);
+  background: rgba(255, 182, 217, 0.13);
 }
 
 .sequence-card span {
@@ -318,6 +318,9 @@ h2,
 h3 {
   font-family: "Poppins", sans-serif;
   letter-spacing: -0.045em;
+  text-wrap: balance;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 h1 {
@@ -383,11 +386,11 @@ p {
 .button.primary {
   color: var(--surface);
   background: var(--primary);
-  box-shadow: 0 16px 38px rgba(17, 17, 17, 0.18);
+  box-shadow: 0 16px 38px rgba(124, 108, 255, 0.28);
 }
 
 .button.primary:hover {
-  background: var(--accent);
+  background: var(--primary-dark);
 }
 
 .button.primary.inverse {
@@ -538,8 +541,8 @@ p {
   text-align: center;
   text-transform: uppercase;
   background:
-    linear-gradient(135deg, rgba(21, 19, 26, 0.74), rgba(255, 106, 162, 0.22)),
-    #28222d;
+    linear-gradient(135deg, rgba(124, 108, 255, 0.64), rgba(255, 182, 217, 0.34)),
+    #26213c;
 }
 
 .media-slot::after,
@@ -564,20 +567,20 @@ p {
 
 .media-slot.reference {
   background:
-    linear-gradient(135deg, rgba(17, 17, 17, 0.76), rgba(255, 106, 162, 0.12)),
-    #17141b;
+    linear-gradient(135deg, rgba(17, 17, 17, 0.66), rgba(124, 108, 255, 0.3)),
+    #1b1923;
 }
 
 .media-slot.progress {
   background:
-    linear-gradient(135deg, rgba(48, 42, 55, 0.88), rgba(255, 229, 239, 0.16)),
-    #302a37;
+    linear-gradient(135deg, rgba(124, 108, 255, 0.64), rgba(124, 108, 255, 0.18)),
+    #2a2542;
 }
 
 .media-slot.result {
   background:
-    linear-gradient(135deg, rgba(255, 106, 162, 0.42), rgba(48, 42, 55, 0.74)),
-    #33242c;
+    linear-gradient(135deg, rgba(255, 182, 217, 0.54), rgba(124, 108, 255, 0.42)),
+    #2c2531;
 }
 
 .media-slot[data-asset],
@@ -585,7 +588,7 @@ p {
 .client-photo[data-asset],
 .discord-shot[data-asset] {
   background-image:
-    linear-gradient(135deg, rgba(17, 17, 17, 0.34), rgba(255, 106, 162, 0.14)),
+    linear-gradient(135deg, rgba(17, 17, 17, 0.34), rgba(124, 108, 255, 0.18)),
     var(--asset-url);
   background-position: center;
   background-size: cover;
@@ -775,9 +778,9 @@ p {
 }
 
 .tier-card.highlighted {
-  border-color: rgba(255, 106, 162, 0.28);
+  border-color: rgba(124, 108, 255, 0.36);
   background:
-    linear-gradient(180deg, rgba(255, 229, 239, 0.72), rgba(255, 255, 255, 0.94));
+    linear-gradient(180deg, rgba(244, 242, 255, 0.92), rgba(255, 255, 255, 0.92));
   box-shadow: var(--shadow-strong);
 }
 
@@ -790,7 +793,7 @@ p {
   color: var(--primary-dark);
   font-size: 0.72rem;
   font-weight: 900;
-  background: rgba(255, 106, 162, 0.12);
+  background: rgba(124, 108, 255, 0.12);
 }
 
 .workshop-grid {
@@ -866,7 +869,7 @@ blockquote {
   margin-bottom: 22px;
   padding: 28px;
   border-radius: var(--radius-md);
-  background: #28222d;
+  background: #26213c;
 }
 
 .discord-shot p {
@@ -983,8 +986,8 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(255, 106, 162, 0.12);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(124, 108, 255, 0.12);
 }
 
 .form-note {
@@ -997,13 +1000,16 @@ textarea:focus {
   color: var(--surface);
   text-align: center;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 106, 162, 0.18), transparent 25rem),
-    linear-gradient(135deg, #111111, #28222d 58%, #111111);
+    radial-gradient(circle at 50% 0%, rgba(255, 182, 217, 0.28), transparent 25rem),
+    linear-gradient(135deg, #111111, #241f3a 58%, #111111);
 }
 
 .final-cta h2 {
   margin-inline: auto;
   margin-bottom: 30px;
+  max-width: 980px;
+  font-size: clamp(2.4rem, 6.2vw, 4.8rem);
+  line-height: 1.05;
 }
 
 .site-footer {
@@ -1089,7 +1095,7 @@ textarea:focus {
   z-index: 40;
   max-width: min(420px, calc(100% - 40px));
   padding: 16px 18px;
-  border: 1px solid rgba(255, 106, 162, 0.24);
+  border: 1px solid rgba(124, 108, 255, 0.2);
   border-radius: var(--radius-sm);
   color: var(--surface);
   background: #111111;
@@ -1106,7 +1112,7 @@ textarea:focus {
   align-items: center;
   min-height: 46px;
   padding: 0 16px;
-  border: 1px solid rgba(255, 106, 162, 0.24);
+  border: 1px solid rgba(124, 108, 255, 0.22);
   border-radius: 999px;
   color: var(--surface);
   cursor: pointer;
