@@ -763,3 +763,40 @@ Next Tasks:
 2. Cursor 输出当前版本问题清单。
 3. Cursor 优先重构 Hero、Craft Process、Consultation CTA 三个模块。
 4. 每次更新后在本文件追加日志。
+
+---
+
+### v0.2 - Header Layout Simplified
+
+Date: 2026-06-06
+
+Changed Files:
+
+- styles.css
+- UPDATE_LOG.md
+- docs/PROJECT_REQUIREMENTS_AND_HANDOFF.md
+
+What Changed:
+
+- 将顶部 header 改为无背景、无边框、无胶囊底的悬浮布局。
+- Logo 与品牌名保留在左上角。
+- 桌面端将作品 / 流程 / 服务 / FAQ 导航与咨询入口放到右上角。
+- 移动端隐藏导航，只保留左上品牌与右上咨询入口，避免挤压。
+- 新增 `UPDATE_LOG.md` 作为轻量更新记录，同时按本文件要求同步本 changelog。
+
+Why Changed:
+
+- 根据参考图方向，减少顶部导航的视觉重量，让 Hero 视频和标题成为首屏主视觉。
+- 避免顶部 banner 背景遮挡视频氛围。
+- 保持首页更像品牌/作品集网站，而不是传统电商导航条。
+
+Open Questions:
+
+- 是否需要把右上角咨询按钮改成英文 `LET'S TALK` 或 `START` 风格？
+- 移动端是否需要增加一个真正的 menu 按钮展开导航？
+
+Next Tasks:
+
+1. 继续根据 ChatGPT / Founder 反馈调整 Hero 与首屏叙事。
+2. 检查 Craft Process 是否需要从静态流程卡升级为滚动叙事模块。
+3. 后续每次更新继续在本文件底部追加 changelog。
