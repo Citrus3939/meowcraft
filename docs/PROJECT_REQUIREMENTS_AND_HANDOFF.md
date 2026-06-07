@@ -46,6 +46,171 @@
 
 ---
 
+## 8. Brand Strategy Update v0.4 - Confidence-Driven Customization
+
+### New Core Insight
+
+Customers are not primarily afraid of paying for a wig.
+
+They are afraid that:
+
+- The wig will not suit them.
+- The character will not look right on them.
+- They will not look as good as they imagined.
+- They will spend money and still feel disappointed.
+
+Therefore, Meow Craft does not simply provide wigs.
+
+We provide confidence, guidance, and professional solutions.
+
+中文理解：
+
+- 用户真正担心的不是“假发贵”，而是“花钱后仍然不像自己想象中的角色”。
+- Meow Craft 的核心价值不只是制作假发，而是降低定制失败风险，让用户更有信心地完成角色呈现。
+
+### New Competitive Advantage
+
+Most wig sellers customize for the character.
+
+Meow Craft customizes for both:
+
+- The character
+- The wearer
+
+We consider:
+
+- Head size
+- Face shape
+- Facial proportions
+- Styling goals
+- Photography requirements
+- Character personality
+
+Our goal is not only character accuracy.
+
+Our goal is to create the best possible version of that character on you.
+
+中文理解：
+
+- 普通卖家只围绕角色还原。
+- Meow Craft 同时围绕“角色”和“佩戴者本人”做定制。
+- 网站文案和咨询流程需要强调：我们帮你找到“这个角色在你身上的最佳版本”。
+
+### Process Update
+
+#### Step 1 — Character Consultation
+
+We learn about:
+
+- Your character
+- Your cosplay goals
+- Your event or photoshoot plans
+
+#### Step 2 — Personal Fit Analysis
+
+We review:
+
+- Head measurements
+- Face shape
+- Facial proportions
+- Styling preferences
+
+This allows us to optimize the wig specifically for you.
+
+#### Step 3 — Design Proposal
+
+We create a styling strategy balancing:
+
+- Character accuracy
+- Wearability
+- Visual impact
+- Photography performance
+
+#### Step 4 — Crafting Process
+
+- Wig selection
+- Cutting
+- Layering
+- Coloring
+- Shaping
+
+#### Step 5 — Progress Review
+
+Photos and videos are shared throughout production.
+
+Feedback is collected before completion.
+
+#### Step 6 — Final Approval
+
+Nothing ships until final confirmation.
+
+#### Step 7 — Aftercare Support
+
+Care instructions and maintenance guidance are provided.
+
+### Website Messaging Rule
+
+Avoid:
+
+> We make custom anime wigs.
+
+Prefer:
+
+> We help you become the character you admire with confidence.
+
+Avoid:
+
+> Custom Wig Service
+
+Prefer:
+
+> Personalized Character Transformation
+
+中文文案方向：
+
+避免：
+
+> 我们提供动漫假发定制服务。
+
+优先：
+
+> 我们帮助你更自信地成为热爱的角色。
+
+避免：
+
+> 定制假发服务
+
+优先：
+
+> 为你量身设计的角色呈现方案
+
+### Internal Principle
+
+We do not sell wigs.
+
+We provide:
+
+Character Accuracy
++
+Personal Fit Optimization
++
+Professional Guidance
++
+Confidence
+
+This is the real Meow Craft product.
+
+中文原则：
+
+Meow Craft 真正销售的不是假发本身，而是：
+
+- 角色准确度
+- 个人适配优化
+- 专业指导
+- 用户对最终呈现效果的信心
+
+---
+
 ## Change Log
 
 ### v0.3 - What We Do + Works Carousel Implemented
@@ -86,3 +251,40 @@ Next Tasks:
 1. Founder / ChatGPT review What We Do 模块的图文节奏。
 2. 如需更强叙事，可继续把该模块升级为 pinned scroll。
 3. 后续继续优化 Consultation CTA，提升咨询转化。
+
+---
+
+### v0.4 - Confidence-Driven Customization Strategy Added
+
+Date: 2026-06-07
+
+Changed Files:
+
+- docs/PROJECT_REQUIREMENTS_AND_HANDOFF.md
+- UPDATE_LOG.md
+
+What Changed:
+
+- 增加 v0.4 品牌策略：Confidence-Driven Customization。
+- 明确用户核心焦虑不是价格，而是“不适合自己 / 不像角色 / 花钱后失望”。
+- 明确 Meow Craft 的差异化：同时为角色和佩戴者本人定制。
+- 新增七步流程：Character Consultation / Personal Fit Analysis / Design Proposal / Crafting Process / Progress Review / Final Approval / Aftercare Support。
+- 新增网站文案规则：从“Custom Wig Service”转向“Personalized Character Transformation”。
+- 新增内部原则：Meow Craft 提供 Character Accuracy + Personal Fit Optimization + Professional Guidance + Confidence。
+
+Why Changed:
+
+- 将品牌从“做高还原假发”升级为“帮助用户自信地成为热爱的角色”。
+- 为后续首页文案、咨询表单、服务流程和 CTA 优化提供统一策略依据。
+
+Open Questions:
+
+- 是否需要立即把首页 Hero / What We Do / Consultation 文案同步改成 v0.4 方向？
+- 咨询表是否需要新增脸型、头围、拍摄目标、风格偏好等字段？
+- 是否需要增加“Personal Fit Analysis”独立模块？
+
+Next Tasks:
+
+1. Founder / ChatGPT 确认是否进入 v0.4 页面文案改版。
+2. Cursor 后续可基于 v0.4 优先更新 Hero、What We Do、Process、Consultation CTA。
+3. 若改表单，需明确数据收集字段和隐私提示。
