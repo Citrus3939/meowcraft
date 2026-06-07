@@ -32,3 +32,9 @@
 - 右侧改为五阶段 Transformation 视觉，随滚动同步切换。
 - 移除旧 Prev / Next 控制和传统流程按钮，减少 corporate workflow feeling。
 - 记录后续问题：是否改 Hero 文案、是否扩展咨询表字段、是否指定更精准的五阶段素材。
+
+## 2026-06-07 01:12 UTC
+
+- 清理旧 craft-story / carousel controls / process-list 样式残留。
+- 将“定制流程”从旧 5 步流程改为 v0.6 七步 Confidence Process。
+- 新流程强调角色准确度与个人适配度，而不只是制作步骤。

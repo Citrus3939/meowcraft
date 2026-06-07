@@ -434,6 +434,41 @@ Next Tasks:
 
 ---
 
+### v0.6.1 - Remove Workflow Residue and Sync Seven-Step Confidence Process
+
+Date: 2026-06-07
+
+Changed Files:
+
+- index.html
+- styles.css
+- docs/PROJECT_REQUIREMENTS_AND_HANDOFF.md
+- UPDATE_LOG.md
+
+What Changed:
+
+- 清理旧 `craft-story-steps` / carousel controls / legacy process-list CSS 残留。
+- 将下方“定制流程”从旧 5 步流程改为 v0.6 七步 Confidence Process。
+- 七步流程同步为：角色咨询、个人适配分析、设计规划、手工制作、进度确认、最终确认、护理支持。
+- 新流程文案强调“角色准确度 + 个人适配度”，不再只是传统制作流程。
+
+Why Changed:
+
+- 进一步落实 v0.6 要求：减少 timeline / corporate workflow feeling。
+- 保证页面不同时存在旧制作流程和新 Confidence-Driven Experience 叙事。
+
+Open Questions:
+
+- 是否要将七步流程改为更视觉化的横向 editorial section，而不是卡片网格？
+- 是否要把咨询表单字段同步扩展为 v0.6 的 Personal Fit Analysis？
+
+Next Tasks:
+
+1. Review 七步 Confidence Process 是否需要保留在首页。
+2. 如需继续推进 v0.6，优先改造 Consultation Form。
+
+---
+
 ### v0.3 - What We Do + Works Carousel Implemented
 
 Date: 2026-06-07
