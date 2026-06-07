@@ -119,29 +119,90 @@
         </div>
       </section>
 
-      <section class="why section-pad" aria-labelledby="why-title">
-        <div class="section-shell">
-          <div class="section-header">
-            <p class="eyebrow">为什么选择 Meow Craft</p>
-            <h2 id="why-title">我们做的是角色还原流程，不是库存商品。</h2>
+      <section class="what-we-do section-pad" id="what-we-do" aria-labelledby="what-title">
+        <div class="section-shell what-layout">
+          <div class="what-copy">
+            <p class="eyebrow">我们做什么</p>
+            <h2 id="what-title">从角色设定到真实佩戴，每一步都围绕还原度。</h2>
+            <p>
+              Meow Craft 不是销售现成假发的店铺。我们根据角色参考、你的佩戴场景和预算，
+              规划假发结构、发量、颜色和最终镜头表现。
+            </p>
+
+            <ol class="craft-story-steps" aria-label="假发定制工艺流程">
+              <li class="is-active" data-stage="0">
+                <span>01</span>
+                <button type="button">角色分析</button>
+                <p>确认角色轮廓、发色层次、刘海方向和最重要的识别点。</p>
+              </li>
+              <li data-stage="1">
+                <span>02</span>
+                <button type="button">毛坯与结构</button>
+                <p>选择基础假发，规划发量、支撑方式、佩戴稳定性和后期维护。</p>
+              </li>
+              <li data-stage="2">
+                <span>03</span>
+                <button type="button">剪裁与造型</button>
+                <p>通过分层、打薄、定型和局部结构处理，让发型接近角色设定。</p>
+              </li>
+              <li data-stage="3">
+                <span>04</span>
+                <button type="button">确认与交付</button>
+                <p>提供完成效果和细节确认，发货前说明佩戴、收纳和整理方式。</p>
+              </li>
+            </ol>
           </div>
 
-          <div class="three-col">
-            <article class="feature-card">
-              <span class="feature-number">01</span>
-              <h3>角色准确度</h3>
-              <p>每顶假毛都围绕角色设定、正侧面轮廓和关键发型特征制作，而不是套用量产模板。</p>
-            </article>
-            <article class="feature-card">
-              <span class="feature-number">02</span>
-              <h3>手工工艺</h3>
-              <p>由理解造型轮廓、发量控制、支撑结构和镜头表现的假毛造型师手工完成。</p>
-            </article>
-            <article class="feature-card">
-              <span class="feature-number">03</span>
-              <h3>清晰沟通</h3>
-              <p>制作过程中提供进度照片和确认节点，让定制过程更透明，也更接近你的预期。</p>
-            </article>
+          <div class="works-carousel" aria-label="作品制作阶段轮播">
+            <div class="carousel-viewport">
+              <article class="carousel-slide is-active" data-stage="0">
+                <figure class="carousel-image" data-asset="assets/3.jpg">
+                  <span>Reference</span>
+                </figure>
+                <div class="carousel-caption">
+                  <p>Character Reference</p>
+                  <h3>先理解角色，而不是先剪假发。</h3>
+                </div>
+              </article>
+              <article class="carousel-slide" data-stage="1">
+                <figure class="carousel-image" data-asset="assets/4.jpg">
+                  <span>Base Wig</span>
+                </figure>
+                <div class="carousel-caption">
+                  <p>Base & Structure</p>
+                  <h3>根据头型、发量和结构需求决定制作方案。</h3>
+                </div>
+              </article>
+              <article class="carousel-slide" data-stage="2">
+                <figure class="carousel-image" data-asset="assets/7.jpg">
+                  <span>Crafting</span>
+                </figure>
+                <div class="carousel-caption">
+                  <p>Cutting & Styling</p>
+                  <h3>剪裁、分束和定型决定最终的角色气质。</h3>
+                </div>
+              </article>
+              <article class="carousel-slide" data-stage="3">
+                <figure class="carousel-image" data-asset="assets/11.jpg">
+                  <span>Final</span>
+                </figure>
+                <div class="carousel-caption">
+                  <p>Final Approval</p>
+                  <h3>让假发在镜头和现场都能稳定还原。</h3>
+                </div>
+              </article>
+            </div>
+
+            <div class="carousel-controls" aria-label="作品轮播控制">
+              <button type="button" data-carousel-action="prev">Prev</button>
+              <div class="carousel-dots" aria-hidden="true">
+                <span class="is-active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <button type="button" data-carousel-action="next">Next</button>
+            </div>
           </div>
         </div>
       </section>
@@ -268,8 +329,9 @@
 
           <div class="tier-grid">
             <article class="tier-card">
-              <p class="tier-label">Essential</p>
-              <h3>基础可佩戴</h3>
+              <p class="tier-label">Ready Styled Collection</p>
+              <h3>基础造型款</h3>
+              <p class="tier-price">59-149 USD</p>
               <p>适合较简单角色，或需要把普通假毛升级到更干净、可拍摄状态的 Cosplayer。</p>
               <ul>
                 <li>基础假毛选择建议</li>
@@ -280,10 +342,10 @@
               <a class="text-link" href="#consultation">申请报价</a>
             </article>
 
-            <article class="tier-card highlighted">
-              <div class="badge">最受欢迎</div>
-              <p class="tier-label">Custom</p>
+            <article class="tier-card">
+              <p class="tier-label">Custom Commission</p>
               <h3>角色定制</h3>
+              <p class="tier-price">199-499 USD</p>
               <p>适合重视角色识别度、正侧面准确度和完整沟通体验的定制需求。</p>
               <ul>
                 <li>基于参考图的造型方案</li>
@@ -291,12 +353,13 @@
                 <li>进度照片与反馈沟通</li>
                 <li>最终完成前确认</li>
               </ul>
-              <a class="button primary" href="#consultation">申请报价</a>
+              <a class="text-link" href="#consultation">申请报价</a>
             </article>
 
             <article class="tier-card">
-              <p class="tier-label">Signature</p>
+              <p class="tier-label">Signature Commission</p>
               <h3>专业级制作</h3>
+              <p class="tier-price">499-999+ USD</p>
               <p>适合复杂角色、摄影棚拍摄、舞台演出和高细节还原需求。</p>
               <ul>
                 <li>高级发际线或发量处理</li>
