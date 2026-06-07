@@ -4,12 +4,11 @@ const heroVideo = document.querySelector(".hero-video");
 const videoFrame = document.querySelector(".video-frame");
 const backToTop = document.querySelector("#backToTop");
 const whatLayout = document.querySelector(".what-layout");
-const craftSteps = [...document.querySelectorAll(".craft-story-steps li")];
-const carouselSlides = [...document.querySelectorAll(".carousel-slide")];
-const carouselDots = [...document.querySelectorAll(".carousel-dots span")];
-const carouselButtons = [...document.querySelectorAll("[data-carousel-action]")];
+const storyPanels = [...document.querySelectorAll(".story-panel")];
+const transformationSlides = [...document.querySelectorAll(".transformation-slide")];
+const transformationDots = [...document.querySelectorAll(".transformation-dots span")];
 
-let activeCarouselIndex = 0;
+let activeTransformationIndex = 0;
 
 function showToast(message) {
   if (!toast) return;
@@ -58,42 +57,29 @@ backToTop?.addEventListener("click", () => {
   });
 });
 
-function setCarouselStage(index) {
-  if (!carouselSlides.length) return;
+function setTransformationStage(index) {
+  if (!transformationSlides.length) return;
 
-  const nextIndex = (index + carouselSlides.length) % carouselSlides.length;
-  activeCarouselIndex = nextIndex;
+  const nextIndex = (index + transformationSlides.length) % transformationSlides.length;
+  activeTransformationIndex = nextIndex;
 
-  carouselSlides.forEach((slide, slideIndex) => {
+  transformationSlides.forEach((slide, slideIndex) => {
     slide.classList.toggle("is-active", slideIndex === nextIndex);
   });
 
-  carouselDots.forEach((dot, dotIndex) => {
+  transformationDots.forEach((dot, dotIndex) => {
     dot.classList.toggle("is-active", dotIndex === nextIndex);
   });
 
-  craftSteps.forEach((step, stepIndex) => {
-    step.classList.toggle("is-active", stepIndex === nextIndex);
+  storyPanels.forEach((panel, panelIndex) => {
+    panel.classList.toggle("is-active", panelIndex === nextIndex);
   });
 }
 
-function setupCraftStory() {
-  if (!whatLayout || !carouselSlides.length || !craftSteps.length) return;
+function setupTransformationStory() {
+  if (!whatLayout || !transformationSlides.length || !storyPanels.length) return;
 
-  setCarouselStage(0);
-
-  craftSteps.forEach((step) => {
-    step.querySelector("button")?.addEventListener("click", () => {
-      setCarouselStage(Number(step.dataset.stage || 0));
-    });
-  });
-
-  carouselButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const direction = button.dataset.carouselAction === "next" ? 1 : -1;
-      setCarouselStage(activeCarouselIndex + direction);
-    });
-  });
+  setTransformationStage(0);
 
   if (!("IntersectionObserver" in window)) {
     whatLayout.classList.add("is-visible");
@@ -109,7 +95,7 @@ function setupCraftStory() {
 
   layoutObserver.observe(whatLayout);
 
-  const stepObserver = new IntersectionObserver(
+  const panelObserver = new IntersectionObserver(
     (entries) => {
       const visibleEntry = entries
         .filter((entry) => entry.isIntersecting)
@@ -117,7 +103,7 @@ function setupCraftStory() {
 
       if (!visibleEntry) return;
 
-      setCarouselStage(Number(visibleEntry.target.dataset.stage || 0));
+      setTransformationStage(Number(visibleEntry.target.dataset.stage || 0));
     },
     {
       threshold: [0.35, 0.6, 0.85],
@@ -125,7 +111,7 @@ function setupCraftStory() {
     },
   );
 
-  craftSteps.forEach((step) => stepObserver.observe(step));
+  storyPanels.forEach((panel) => panelObserver.observe(panel));
 }
 
-setupCraftStory();
+setupTransformationStory();

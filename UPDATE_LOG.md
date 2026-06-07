@@ -23,3 +23,12 @@
 - 明确 Meow Craft 的差异化：同时为角色和佩戴者本人定制。
 - 记录新的七步流程：角色咨询、个人适配分析、设计方案、制作过程、进度确认、最终确认、售后护理。
 - 记录新文案原则：从“定制假发服务”升级为“为你量身设计的角色呈现方案”。
+
+## 2026-06-07 01:02 UTC
+
+- 同步 v0.6 策略：Confidence-Driven Experience。
+- 将 What We Do 模块从时间线/流程列表改为情绪叙事 + 视觉转化。
+- 左侧改为 Reference / Structure / Styling / Detail / Final 五段故事。
+- 右侧改为五阶段 Transformation 视觉，随滚动同步切换。
+- 移除旧 Prev / Next 控制和传统流程按钮，减少 corporate workflow feeling。
+- 记录后续问题：是否改 Hero 文案、是否扩展咨询表字段、是否指定更精准的五阶段素材。
