@@ -393,41 +393,39 @@ Visitors should feel the transformation process rather than read a workflow.
 
 ## Change Log
 
-### v0.8 - Split Collage Assets into Editorial Mosaic
+### v0.8 - Revert Mosaic Layout and Preserve Split Assets
 
 Date: 2026-06-07
 
 Changed Files:
 
+- assets/2.jpg through assets/27.jpg
 - assets/split/*.jpg
 - ASSETS.md
-- styles.css
-- script.js
-- docs/PROJECT_REQUIREMENTS_AND_HANDOFF.md
 - UPDATE_LOG.md
+- docs/PROJECT_REQUIREMENTS_AND_HANDOFF.md
 
 What Changed:
 
-- 将现有 2x2 四宫格拼接素材批量裁切为四张独立图片。
-- 输出路径为 `assets/split/编号-1.jpg` 到 `assets/split/编号-4.jpg`。
-- 页面媒体位会自动读取对应四张拆分图，并重新排版成 editorial mosaic。
-- 新布局为左侧一张大图，右侧三张小图，避免原始四宫格缩略图直接展示。
-- 原始 `assets/编号.jpg` 保留为 fallback。
+- 回滚页面代码到四图 mosaic 前的上一版视觉实现。
+- 保留 `assets/split/` 中的 104 张拆分素材。
+- 将 `assets/2.jpg` 到 `assets/27.jpg` 替换为对应 `assets/split/编号-1.jpg`。
+- 页面继续使用单图素材路径，不再自动注入四图 mosaic。
 
 Why Changed:
 
-- 现有图片素材直接展示时像四张缩略图拼接，不够高级，也不够 cinematic。
-- 拆分并重新排版后，图片呈现更接近作品集 / 时装编辑视觉，而不是素材合集。
+- Founder 希望回到倒数第二个视觉版本，但保留已拆分的素材能力。
+- 直接替换主素材可以避免页面展示四宫格拼接图，同时保持现有页面结构稳定。
 
 Open Questions:
 
-- 是否需要 Founder 指定每组四图中哪一张作为左侧主图？
-- 是否需要不同模块使用不同 mosaic 布局，而不是统一左大右三小？
+- 是否需要逐张选择 `编号-1` / `编号-2` / `编号-3` / `编号-4` 中最适合作为主图的图片？
+- 是否后续只在 Featured Works 使用 mosaic，而其他模块保持单图？
 
 Next Tasks:
 
-1. Review 拆分后的四图排版是否比原始拼接更高级。
-2. 如需进一步优化，可按作品类型重新指定主图顺序。
+1. Review 当前单图替换后的视觉效果。
+2. 如有需要，Founder 指定每组素材中更适合作为主图的序号。
 
 ---
 

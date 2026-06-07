@@ -57,51 +57,6 @@ backToTop?.addEventListener("click", () => {
   });
 });
 
-function setupSplitMedia() {
-  const mediaItems = [...document.querySelectorAll("[data-asset]")];
-
-  mediaItems.forEach((item) => {
-    const asset = item.dataset.asset || "";
-    const match = asset.match(/assets\/(\d+)\.jpg$/);
-    if (!match || item.dataset.splitEnhanced === "true") return;
-
-    const assetNumber = match[1];
-    let existingLabel = item.querySelector(":scope > span:not(.split-media-grid)");
-
-    if (!existingLabel) {
-      const textNodes = [...item.childNodes].filter(
-        (node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim(),
-      );
-
-      if (textNodes.length) {
-        existingLabel = document.createElement("span");
-        existingLabel.textContent = textNodes.map((node) => node.textContent.trim()).join(" ");
-        textNodes.forEach((node) => node.remove());
-        item.append(existingLabel);
-      }
-    }
-
-    if (existingLabel) {
-      existingLabel.classList.add("media-label");
-    }
-
-    const grid = document.createElement("span");
-    grid.className = "split-media-grid";
-    grid.setAttribute("aria-hidden", "true");
-
-    [1, 2, 3, 4].forEach((tileNumber) => {
-      const tile = document.createElement("span");
-      tile.className = `split-media-tile split-media-tile-${tileNumber}`;
-      tile.style.setProperty("--split-url", `url("assets/split/${assetNumber}-${tileNumber}.jpg")`);
-      grid.append(tile);
-    });
-
-    item.prepend(grid);
-    item.classList.add("has-split-media");
-    item.dataset.splitEnhanced = "true";
-  });
-}
-
 function setTransformationStage(index) {
   if (!transformationSlides.length) return;
 
@@ -160,4 +115,3 @@ function setupTransformationStory() {
 }
 
 setupTransformationStory();
-setupSplitMedia();

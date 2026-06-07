@@ -47,9 +47,9 @@
 - 增加页面留白，减少边框、阴影和通用电商卡片感。
 - 作品区加入角色色彩变量，让 Nilou / Frieren / Elysia / Furina / Kafka 的角色色承载动漫情绪。
 
-## 2026-06-07 19:36 UTC
+## 2026-06-07 19:52 UTC
 
-- 将现有 2x2 四宫格拼接素材批量裁切为四张独立图片。
-- 新增 `assets/split/编号-1.jpg` 到 `assets/split/编号-4.jpg`。
-- 页面媒体位自动读取四张拆分图，并重新排列为 editorial mosaic。
-- 原始 `assets/编号.jpg` 保留为 fallback。
+- 回滚页面代码到四图 mosaic 前的上一版视觉实现。
+- 保留 `assets/split/` 中的 104 张拆分素材。
+- 使用每组拆分图的第一张替换 `assets/2.jpg` 到 `assets/27.jpg`，避免页面直接展示四宫格拼接图。
+- 移除自动四图 mosaic 相关代码与样式。
