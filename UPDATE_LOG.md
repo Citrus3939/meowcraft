@@ -38,3 +38,11 @@
 - 清理旧 craft-story / carousel controls / process-list 样式残留。
 - 将“定制流程”从旧 5 步流程改为 v0.6 七步 Confidence Process。
 - 新流程强调角色准确度与个人适配度，而不只是制作步骤。
+
+## 2026-06-07 03:38 UTC
+
+- 更新视觉方向为 Anime Editorial + Soft Luxury + Craft Atelier。
+- 基础色改为 Warm Ivory / Soft Porcelain / Ink Black / Warm Gray / Mist Border。
+- 大标题改用 editorial serif，正文保留 Inter。
+- 增加页面留白，减少边框、阴影和通用电商卡片感。
+- 作品区加入角色色彩变量，让 Nilou / Frieren / Elysia / Furina / Kafka 的角色色承载动漫情绪。

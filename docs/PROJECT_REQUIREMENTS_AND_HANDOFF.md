@@ -393,6 +393,53 @@ Visitors should feel the transformation process rather than read a workflow.
 
 ## Change Log
 
+### v0.7 - Anime Editorial Soft Luxury Visual Direction
+
+Date: 2026-06-07
+
+Changed Files:
+
+- index.html
+- styles.css
+- docs/PROJECT_REQUIREMENTS_AND_HANDOFF.md
+- UPDATE_LOG.md
+
+What Changed:
+
+- 更新视觉方向为 Anime Editorial + Soft Luxury + Craft Atelier。
+- 将基础色调整为 Warm Ivory / Soft Porcelain / Ink Black / Warm Gray / Mist Border。
+- 移除紫色 SaaS / AI startup 气质，避免 generic ecommerce cards。
+- 将大标题字体改为 editorial serif：Cormorant Garamond。
+- 正文字体保留 Inter，保证现代可读性。
+- 增加整体留白，减少边框和卡片感。
+- 作品区改为更接近 cinematic product imagery 的大图展示。
+- 为作品卡加入角色色彩变量：
+  - Nilou: aqua blue / coral red
+  - Frieren: silver green / pale gold
+  - Elysia: rosy pink / pearl white
+  - Furina: deep blue / soft white
+  - Kafka: wine purple / dusty rose
+
+Why Changed:
+
+- 当前版本不够 premium，也不够 anime-inspired。
+- 新方向通过角色色彩承载动漫情绪，通过衬线排版和留白建立高级感。
+- 避免黑金奢侈品、紫色 SaaS、普通电商卡片三类错误方向。
+
+Open Questions:
+
+- 是否需要把 Featured Works 从六个小项目进一步改为单屏一个大作品的 editorial gallery？
+- 是否需要按真实角色名称和素材重新匹配 Nilou / Frieren / Elysia / Furina / Kafka？
+- 是否需要将 Hero 标题也改为更英文 editorial 混排？
+
+Next Tasks:
+
+1. Founder / ChatGPT review 新视觉方向是否更接近 premium anime craft atelier。
+2. 下一步可继续减少卡片，改造 Featured Works 为更强的作品展览模块。
+3. 继续基于 v0.6 调整 Consultation Form 以体现 Personal Fit Optimization。
+
+---
+
 ### v0.6 - Confidence-Driven Experience Implemented
 
 Date: 2026-06-07
