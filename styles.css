@@ -615,12 +615,99 @@ p {
   background: linear-gradient(180deg, transparent 42%, rgba(21, 21, 21, 0.78));
 }
 
-.transformation-image span {
+.transformation-image > .media-label,
+.transformation-image > span:not(.split-media-grid) {
   position: relative;
   z-index: 1;
   padding: 10px 14px;
   border-radius: 999px;
   background: rgba(17, 17, 17, 0.42);
+}
+
+.has-split-media {
+  background-image:
+    linear-gradient(135deg, rgba(21, 21, 21, 0.14), color-mix(in srgb, var(--character-accent, #9dbfb7) 12%, transparent)),
+    var(--asset-url);
+}
+
+.split-media-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  gap: clamp(6px, 1.2vw, 12px);
+  padding: clamp(10px, 1.6vw, 18px);
+  background: #151515;
+}
+
+.split-media-tile {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: clamp(12px, 1.5vw, 20px);
+  background-image: var(--split-url);
+  background-position: center;
+  background-size: cover;
+  filter: saturate(0.96) contrast(1.02);
+  transform: translateZ(0);
+  transition:
+    filter 320ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.split-media-tile-1 {
+  grid-row: 1 / 4;
+}
+
+.split-media-tile-2 {
+  transform: translateY(5%);
+}
+
+.split-media-tile-3 {
+  transform: translateY(0);
+}
+
+.split-media-tile-4 {
+  transform: translateY(-5%);
+}
+
+.has-split-media::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(180deg, rgba(21, 21, 21, 0.02), rgba(21, 21, 21, 0.45)),
+    radial-gradient(circle at 82% 16%, color-mix(in srgb, var(--character-accent, #9dbfb7) 26%, transparent), transparent 18rem);
+}
+
+.has-split-media .media-label,
+.has-split-media > span:not(.split-media-grid):not(.split-media-tile) {
+  position: relative;
+  z-index: 2;
+}
+
+.has-split-media:hover .split-media-tile {
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.has-split-media:hover .split-media-tile-1 {
+  transform: scale(1.035);
+}
+
+.has-split-media:hover .split-media-tile-2 {
+  transform: translateY(5%) scale(1.045);
+}
+
+.has-split-media:hover .split-media-tile-3 {
+  transform: scale(1.045);
+}
+
+.has-split-media:hover .split-media-tile-4 {
+  transform: translateY(-5%) scale(1.045);
 }
 
 .transformation-slide:hover .transformation-image {
@@ -775,10 +862,14 @@ p {
   content: "";
 }
 
-.media-slot span,
-.media-fill,
-.client-photo,
-.discord-shot span {
+.media-slot > .media-label,
+.media-slot > span:not(.split-media-grid),
+.media-fill > .media-label,
+.media-fill > span:not(.split-media-grid),
+.client-photo > .media-label,
+.client-photo > span:not(.split-media-grid),
+.discord-shot > .media-label,
+.discord-shot > span:not(.split-media-grid) {
   position: relative;
   z-index: 1;
   padding: 0 12px;

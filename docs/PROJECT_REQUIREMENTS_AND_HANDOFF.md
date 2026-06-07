@@ -393,6 +393,44 @@ Visitors should feel the transformation process rather than read a workflow.
 
 ## Change Log
 
+### v0.8 - Split Collage Assets into Editorial Mosaic
+
+Date: 2026-06-07
+
+Changed Files:
+
+- assets/split/*.jpg
+- ASSETS.md
+- styles.css
+- script.js
+- docs/PROJECT_REQUIREMENTS_AND_HANDOFF.md
+- UPDATE_LOG.md
+
+What Changed:
+
+- 将现有 2x2 四宫格拼接素材批量裁切为四张独立图片。
+- 输出路径为 `assets/split/编号-1.jpg` 到 `assets/split/编号-4.jpg`。
+- 页面媒体位会自动读取对应四张拆分图，并重新排版成 editorial mosaic。
+- 新布局为左侧一张大图，右侧三张小图，避免原始四宫格缩略图直接展示。
+- 原始 `assets/编号.jpg` 保留为 fallback。
+
+Why Changed:
+
+- 现有图片素材直接展示时像四张缩略图拼接，不够高级，也不够 cinematic。
+- 拆分并重新排版后，图片呈现更接近作品集 / 时装编辑视觉，而不是素材合集。
+
+Open Questions:
+
+- 是否需要 Founder 指定每组四图中哪一张作为左侧主图？
+- 是否需要不同模块使用不同 mosaic 布局，而不是统一左大右三小？
+
+Next Tasks:
+
+1. Review 拆分后的四图排版是否比原始拼接更高级。
+2. 如需进一步优化，可按作品类型重新指定主图顺序。
+
+---
+
 ### v0.7 - Anime Editorial Soft Luxury Visual Direction
 
 Date: 2026-06-07

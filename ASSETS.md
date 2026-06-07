@@ -4,6 +4,7 @@
 
 > 建议图片优先使用 `.jpg` 或 `.webp`，视频优先使用压缩后的 `.mp4`，如条件允许可额外提供 `.webm`。
 > 当前已将 Release `assets-v1` 中的视频绑定为 `assets/1.mp4`，并将前 26 张图片优化绑定为 `assets/2.jpg` 到 `assets/27.jpg`。如需 `.webm`，可后续额外添加。
+> 由于当前图片素材本身是 2x2 四宫格拼接图，已自动裁切为 `assets/split/编号-1.jpg` 到 `assets/split/编号-4.jpg`。页面展示时会优先使用这四张拆分图重新排版成 editorial mosaic，原 `assets/编号.jpg` 保留为 fallback。
 
 | 编号 | 建议文件名 | 页面位置 | 用途 / 内容建议 |
 | --- | --- | --- | --- |
@@ -43,3 +44,14 @@
 2. **改成真实图片标签**：把对应占位 `<figure>` 或 `<div>` 替换为 `<img src="assets/编号.jpg" alt="描述">`。
 
 如果要保持当前版式，推荐第一种方式，图片可用 `background-image` 配合 `background-size: cover`。
+
+## 四图拆分规则
+
+- 原图：`assets/3.jpg`
+- 拆分后：
+  - `assets/split/3-1.jpg` 左上
+  - `assets/split/3-2.jpg` 右上
+  - `assets/split/3-3.jpg` 左下
+  - `assets/split/3-4.jpg` 右下
+
+页面会将四张子图重新排列为：左侧一张大图，右侧三张小图。这样可以避免原始四宫格缩略图直接出现在页面里。
