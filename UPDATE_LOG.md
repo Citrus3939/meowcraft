@@ -53,3 +53,11 @@
 - 保留 `assets/split/` 中的 104 张拆分素材。
 - 使用每组拆分图的第一张替换 `assets/2.jpg` 到 `assets/27.jpg`，避免页面直接展示四宫格拼接图。
 - 移除自动四图 mosaic 相关代码与样式。
+
+## 2026-06-08 14:55 UTC
+
+- 回滚页面代码到紫色风格版本（v0.6 confidence process cleanup，commit `9a17705`）。
+- 移除 Anime Editorial 古典 serif 排版与暖色 ivory 配色。
+- 恢复 `#7c6cff` 紫色主色、Inter/Poppins 字体体系与原有页面布局。
+- 保留 `assets/split/` 中的 104 张拆分素材。
+- 继续使用每组拆分图的第一张替换 `assets/2.jpg` 到 `assets/27.jpg`。
