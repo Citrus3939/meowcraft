@@ -3,12 +3,6 @@ const toast = document.querySelector("#toast");
 const heroVideo = document.querySelector(".hero-video");
 const videoFrame = document.querySelector(".video-frame");
 const backToTop = document.querySelector("#backToTop");
-const whatLayout = document.querySelector(".what-layout");
-const storyPanels = [...document.querySelectorAll(".story-panel")];
-const transformationSlides = [...document.querySelectorAll(".transformation-slide")];
-const transformationDots = [...document.querySelectorAll(".transformation-dots span")];
-
-let activeTransformationIndex = 0;
 
 function showToast(message) {
   if (!toast) return;
@@ -56,62 +50,3 @@ backToTop?.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
-
-function setTransformationStage(index) {
-  if (!transformationSlides.length) return;
-
-  const nextIndex = (index + transformationSlides.length) % transformationSlides.length;
-  activeTransformationIndex = nextIndex;
-
-  transformationSlides.forEach((slide, slideIndex) => {
-    slide.classList.toggle("is-active", slideIndex === nextIndex);
-  });
-
-  transformationDots.forEach((dot, dotIndex) => {
-    dot.classList.toggle("is-active", dotIndex === nextIndex);
-  });
-
-  storyPanels.forEach((panel, panelIndex) => {
-    panel.classList.toggle("is-active", panelIndex === nextIndex);
-  });
-}
-
-function setupTransformationStory() {
-  if (!whatLayout || !transformationSlides.length || !storyPanels.length) return;
-
-  setTransformationStage(0);
-
-  if (!("IntersectionObserver" in window)) {
-    whatLayout.classList.add("is-visible");
-    return;
-  }
-
-  const layoutObserver = new IntersectionObserver(
-    ([entry]) => {
-      whatLayout.classList.toggle("is-visible", entry.isIntersecting);
-    },
-    { threshold: 0.18 },
-  );
-
-  layoutObserver.observe(whatLayout);
-
-  const panelObserver = new IntersectionObserver(
-    (entries) => {
-      const visibleEntry = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-      if (!visibleEntry) return;
-
-      setTransformationStage(Number(visibleEntry.target.dataset.stage || 0));
-    },
-    {
-      threshold: [0.35, 0.6, 0.85],
-      rootMargin: "-18% 0px -42% 0px",
-    },
-  );
-
-  storyPanels.forEach((panel) => panelObserver.observe(panel));
-}
-
-setupTransformationStory();

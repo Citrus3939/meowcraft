@@ -3,8 +3,7 @@
 请按下表编号替换 `assets/` 目录里的素材。页面中也已用 `data-asset` 和占位文字标注对应编号。
 
 > 建议图片优先使用 `.jpg` 或 `.webp`，视频优先使用压缩后的 `.mp4`，如条件允许可额外提供 `.webm`。
-> 当前已将 Release `assets-v1` 中的视频绑定为 `assets/1.mp4`，并将前 26 张图片优化绑定为 `assets/2.jpg` 到 `assets/27.jpg`。如需 `.webm`，可后续额外添加。
-> 当前页面已回滚到单图展示版本：`assets/2.jpg` 到 `assets/27.jpg` 已由四宫格拼接图替换为对应拆分图的第一张。完整拆分素材仍保留在 `assets/split/`，可后续重新挑选或重排。
+> 当前已将 Release `assets-v1` 中的前 26 张图片优化并绑定为 `assets/2.jpg` 到 `assets/27.jpg`。`assets/1.mp4` / `assets/1.webm` 仍保留为后续首屏视频替换位。
 
 | 编号 | 建议文件名 | 页面位置 | 用途 / 内容建议 |
 | --- | --- | --- | --- |
@@ -44,22 +43,3 @@
 2. **改成真实图片标签**：把对应占位 `<figure>` 或 `<div>` 替换为 `<img src="assets/编号.jpg" alt="描述">`。
 
 如果要保持当前版式，推荐第一种方式，图片可用 `background-image` 配合 `background-size: cover`。
-
-## 拆分素材保留规则
-
-当前每张原四宫格素材都已拆成 4 张独立图片：
-
-```text
-assets/split/编号-1.jpg
-assets/split/编号-2.jpg
-assets/split/编号-3.jpg
-assets/split/编号-4.jpg
-```
-
-页面当前直接使用 `assets/编号.jpg`，其中 `assets/编号.jpg` 已被替换为 `assets/split/编号-1.jpg` 的内容。
-
-如果后续想换成同组中的其他图，可以把对应文件复制覆盖，例如：
-
-```text
-assets/split/3-2.jpg -> assets/3.jpg
-```
