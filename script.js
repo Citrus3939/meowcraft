@@ -3,6 +3,10 @@ const toast = document.querySelector("#toast");
 const heroVideo = document.querySelector(".hero-video");
 const videoFrame = document.querySelector(".video-frame");
 const backToTop = document.querySelector("#backToTop");
+const galleryLightbox = document.querySelector("#galleryLightbox");
+const lightboxGrid = document.querySelector("#lightboxGrid");
+const lightboxClose = document.querySelector(".lightbox-close");
+const galleryButtons = [...document.querySelectorAll(".work-photo[data-gallery]")];
 
 function showToast(message) {
   if (!toast) return;
@@ -49,4 +53,50 @@ backToTop?.addEventListener("click", () => {
     top: 0,
     behavior: "smooth",
   });
+});
+
+function closeGalleryLightbox() {
+  if (!galleryLightbox || !lightboxGrid) return;
+
+  galleryLightbox.hidden = true;
+  lightboxGrid.replaceChildren();
+  document.body.classList.remove("is-lightbox-open");
+}
+
+function openGalleryLightbox(galleryId) {
+  if (!galleryLightbox || !lightboxGrid || !galleryId) return;
+
+  const images = [1, 2, 3, 4].map((index) => {
+    const image = document.createElement("img");
+    image.src = `assets/split/${galleryId}-${index}.jpg`;
+    image.alt = `作品 ${galleryId} 造型 ${index}`;
+    image.loading = "lazy";
+    return image;
+  });
+
+  lightboxGrid.replaceChildren(...images);
+  galleryLightbox.hidden = false;
+  document.body.classList.add("is-lightbox-open");
+  lightboxClose?.focus();
+}
+
+galleryButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (button.getAttribute("aria-hidden") === "true") return;
+    openGalleryLightbox(button.dataset.gallery);
+  });
+});
+
+lightboxClose?.addEventListener("click", closeGalleryLightbox);
+
+galleryLightbox?.addEventListener("click", (event) => {
+  if (event.target === galleryLightbox) {
+    closeGalleryLightbox();
+  }
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && galleryLightbox && !galleryLightbox.hidden) {
+    closeGalleryLightbox();
+  }
 });
