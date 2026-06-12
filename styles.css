@@ -7,7 +7,7 @@
   --primary-dark: #00a9cc;
   --headline-a: #2c2c34;
   --headline-b: #8cecff;
-  --cta-hover: #c86eff;
+  --cta-hover: #f2aae2;
   --accent: #00d4ff;
   --accent-soft: rgba(0, 212, 255, 0.12);
   --violet-soft: rgba(0, 212, 255, 0.08);
@@ -230,6 +230,7 @@ figure {
   inset: 0;
   z-index: 1;
   display: block;
+  filter: grayscale(18%);
   object-fit: cover;
   opacity: 0;
   transition: opacity 360ms ease;
@@ -286,7 +287,7 @@ figure {
 }
 
 .title-tone-b {
-  color: var(--headline-b);
+  color: #ffffff;
 }
 
 .eyebrow {
