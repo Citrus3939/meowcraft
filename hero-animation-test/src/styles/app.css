@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap");
+
+:root {
+  color: #f7fbff;
+  background: #050711;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.demo-page {
+  min-height: 100vh;
+  background: #050711;
+}
+
+.cosplay-hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cosplay-hero__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cosplay-hero__overlay {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: end;
+  min-height: 100svh;
+  width: min(1120px, calc(100% - 40px));
+  margin-inline: auto;
+  padding-block: clamp(88px, 12vw, 150px);
+  pointer-events: none;
+}
+
+.cosplay-hero__overlay::before {
+  position: absolute;
+  inset: auto -12vw 0;
+  z-index: -1;
+  height: 54%;
+  content: "";
+  background: linear-gradient(180deg, rgba(5, 7, 17, 0), rgba(5, 7, 17, 0.76));
+  pointer-events: none;
+}
+
+.cosplay-hero__kicker {
+  width: fit-content;
+  margin: 0 0 18px;
+  color: #8cf6ff;
+  font-size: clamp(0.74rem, 1.4vw, 0.9rem);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cosplay-hero h1 {
+  max-width: 860px;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(3.4rem, 10vw, 9rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.cosplay-hero__overlay > p:not(.cosplay-hero__kicker) {
+  max-width: 620px;
+  margin: 24px 0 0;
+  color: rgba(247, 251, 255, 0.74);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.cosplay-hero__status {
+  width: fit-content;
+  margin-top: 28px;
+  padding: 8px 12px;
+  border: 1px solid rgba(140, 246, 255, 0.34);
+  color: #8cf6ff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(5, 7, 17, 0.48);
+}
+
+.cosplay-hero__uploads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+  pointer-events: auto;
+}
+
+.cosplay-hero__uploads label {
+  display: grid;
+  gap: 7px;
+  min-width: min(230px, 100%);
+  color: rgba(247, 251, 255, 0.72);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cosplay-hero__uploads input {
+  width: 100%;
+  border: 1px solid rgba(140, 246, 255, 0.26);
+  border-radius: 999px;
+  color: rgba(247, 251, 255, 0.84);
+  background: rgba(5, 7, 17, 0.56);
+}
+
+.cosplay-hero__uploads input::file-selector-button {
+  margin-right: 12px;
+  padding: 10px 14px;
+  border: 0;
+  color: #061018;
+  font-weight: 900;
+  background: #8cf6ff;
+}
+
+@media (max-width: 720px) {
+  .cosplay-hero__overlay {
+    width: calc(100% - 28px);
+    padding-block: 84px 36px;
+  }
+
+  .cosplay-hero h1 {
+    font-size: clamp(3rem, 17vw, 5.2rem);
+  }
+
+  .cosplay-hero__uploads {
+    display: none;
+  }
+}
