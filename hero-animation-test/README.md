@@ -2,6 +2,28 @@
 
 React + TypeScript + GSAP + Canvas 2D prototype for a Shopify homepage hero animation.
 
+## Important: how to preview
+
+`index.html` is a Vite entry file. Opening it directly from the file system will not compile `src/main.tsx`.
+
+Use one of these options:
+
+- For the React + TypeScript version:
+
+  ```bash
+  cd hero-animation-test
+  npm install
+  npm run dev
+  ```
+
+- For a direct double-click preview, open:
+
+  ```text
+  hero-animation-test/standalone.html
+  ```
+
+`standalone.html` uses plain browser JavaScript + Canvas + GSAP CDN so it can run without Vite.
+
 ## Run locally
 
 ```bash
