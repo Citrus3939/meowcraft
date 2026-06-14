@@ -102,7 +102,8 @@ window.addEventListener("keydown", (event) => {
 });
 
 const tiltCards = [...document.querySelectorAll(".work-photo")];
-const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+const coarsePointer = window.matchMedia("(pointer: coarse)");
+const narrowViewport = window.matchMedia("(max-width: 768px)");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const MAX_TILT = 6;
 
@@ -128,7 +129,8 @@ function handleTiltLeave(event) {
 }
 
 function applyTiltBindings() {
-  const enableTilt = finePointer.matches && !reducedMotion.matches;
+  const enableTilt =
+    !coarsePointer.matches && !narrowViewport.matches && !reducedMotion.matches;
 
   tiltCards.forEach((card) => {
     card.removeEventListener("mousemove", handleTiltMove);
@@ -143,5 +145,6 @@ function applyTiltBindings() {
 }
 
 applyTiltBindings();
-finePointer.addEventListener?.("change", applyTiltBindings);
+coarsePointer.addEventListener?.("change", applyTiltBindings);
+narrowViewport.addEventListener?.("change", applyTiltBindings);
 reducedMotion.addEventListener?.("change", applyTiltBindings);
