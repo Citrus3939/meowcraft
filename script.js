@@ -152,27 +152,26 @@ reducedMotion.addEventListener?.("change", applyTiltBindings);
 const workCarousel = document.querySelector(".work-carousel");
 if (workCarousel) {
   const track = workCarousel.querySelector(".work-track");
-  const slides = [...track.querySelectorAll(".work-photo")];
   const prevBtn = workCarousel.querySelector(".work-nav-prev");
   const nextBtn = workCarousel.querySelector(".work-nav-next");
-  let current = 0;
 
-  function updateCarousel() {
-    track.style.transform = `translateX(-${current * 100}%)`;
-    slides.forEach((slide, i) => {
-      const hidden = i !== current;
-      slide.setAttribute("aria-hidden", hidden ? "true" : "false");
-      slide.tabIndex = hidden ? -1 : 0;
-    });
-  }
+  const atStart = () => track.scrollLeft <= 4;
+  const atEnd = () =>
+    track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
 
-  function moveCarousel(step) {
-    if (!slides.length) return;
-    current = (current + step + slides.length) % slides.length;
-    updateCarousel();
-  }
+  nextBtn?.addEventListener("click", () => {
+    if (atEnd()) {
+      track.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+    }
+  });
 
-  prevBtn?.addEventListener("click", () => moveCarousel(-1));
-  nextBtn?.addEventListener("click", () => moveCarousel(1));
-  updateCarousel();
+  prevBtn?.addEventListener("click", () => {
+    if (atStart()) {
+      track.scrollTo({ left: track.scrollWidth, behavior: "smooth" });
+    } else {
+      track.scrollBy({ left: -track.clientWidth, behavior: "smooth" });
+    }
+  });
 }
