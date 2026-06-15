@@ -100,3 +100,78 @@ window.addEventListener("keydown", (event) => {
     closeGalleryLightbox();
   }
 });
+
+const tiltCards = [...document.querySelectorAll(".work-photo")];
+const coarsePointer = window.matchMedia("(pointer: coarse)");
+const narrowViewport = window.matchMedia("(max-width: 768px)");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const MAX_TILT = 6;
+
+function handleTiltMove(event) {
+  const card = event.currentTarget;
+  const rect = card.getBoundingClientRect();
+
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+
+  const rotateX = ((y - centerY) / centerY) * -MAX_TILT;
+  const rotateY = ((x - centerX) / centerX) * MAX_TILT;
+
+  card.style.transform =
+    `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-8px)`;
+}
+
+function handleTiltLeave(event) {
+  event.currentTarget.style.transform = "";
+}
+
+function applyTiltBindings() {
+  const enableTilt =
+    !coarsePointer.matches && !narrowViewport.matches && !reducedMotion.matches;
+
+  tiltCards.forEach((card) => {
+    card.removeEventListener("mousemove", handleTiltMove);
+    card.removeEventListener("mouseleave", handleTiltLeave);
+    card.style.transform = "";
+
+    if (enableTilt) {
+      card.addEventListener("mousemove", handleTiltMove);
+      card.addEventListener("mouseleave", handleTiltLeave);
+    }
+  });
+}
+
+applyTiltBindings();
+coarsePointer.addEventListener?.("change", applyTiltBindings);
+narrowViewport.addEventListener?.("change", applyTiltBindings);
+reducedMotion.addEventListener?.("change", applyTiltBindings);
+
+const workCarousel = document.querySelector(".work-carousel");
+if (workCarousel) {
+  const track = workCarousel.querySelector(".work-track");
+  const prevBtn = workCarousel.querySelector(".work-nav-prev");
+  const nextBtn = workCarousel.querySelector(".work-nav-next");
+
+  const atStart = () => track.scrollLeft <= 4;
+  const atEnd = () =>
+    track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+
+  nextBtn?.addEventListener("click", () => {
+    if (atEnd()) {
+      track.scrollTo({ left: 0, behavior: "smooth" });
+    } else {
+      track.scrollBy({ left: track.clientWidth, behavior: "smooth" });
+    }
+  });
+
+  prevBtn?.addEventListener("click", () => {
+    if (atStart()) {
+      track.scrollTo({ left: track.scrollWidth, behavior: "smooth" });
+    } else {
+      track.scrollBy({ left: -track.clientWidth, behavior: "smooth" });
+    }
+  });
+}
