@@ -31,13 +31,26 @@ consultationForm?.addEventListener("submit", (event) => {
   consultationForm.reset();
 });
 
-heroVideo?.addEventListener("canplay", () => {
-  videoFrame?.classList.add("is-video-ready");
-});
+if (heroVideo) {
+  const markVideoReady = () => videoFrame?.classList.add("is-video-ready");
 
-heroVideo?.addEventListener("error", () => {
-  videoFrame?.classList.remove("is-video-ready");
-});
+  if (heroVideo.readyState >= 2) {
+    markVideoReady();
+  }
+
+  heroVideo.addEventListener("loadeddata", markVideoReady);
+  heroVideo.addEventListener("canplay", markVideoReady);
+  heroVideo.addEventListener("playing", markVideoReady);
+
+  heroVideo.addEventListener("error", () => {
+    videoFrame?.classList.remove("is-video-ready");
+  });
+
+  const playAttempt = heroVideo.play?.();
+  if (playAttempt && typeof playAttempt.catch === "function") {
+    playAttempt.catch(() => {});
+  }
+}
 
 function updateBackToTopVisibility() {
   if (!backToTop) return;
