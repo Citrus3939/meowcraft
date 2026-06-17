@@ -1,33 +1,56 @@
 :root {
   color-scheme: light;
-  --bg-main: #ffffff;
-  --bg-soft: #f5faff;
-  --bg-blue: #eaf6ff;
-  --text-main: #1f2937;
-  --text-muted: #6b7280;
-  --accent-blue: #7dd3fc;
-  --accent-blue-strong: #38bdf8;
-  --accent-pink: #f9a8d4;
-  --border-soft: #e5e7eb;
-  --card-bg: #ffffff;
+
+  /* Background */
+  --bg-main: #f0f4ff;
+  --bg-section: #eaf1ff;
+  --surface: #ffffff;
+
+  /* Text */
+  --text-heading: #3a4266;
+  --text-main: #2f3448;
+  --text-soft: #6e7896;
+  --text-muted: #9aa6c7;
+
+  /* Accent */
+  --primary: #8197dc;
+  --primary-dark: #667dd0;
+  --primary-soft: #b8c6f2;
+  --miku-cyan: #2fcbff;
+  --anime-pink: #ffb7d5;
+  --anime-pink-strong: #ff8fc4;
+
+  /* UI */
+  --border-soft: rgba(129, 151, 220, 0.18);
+  --shadow-soft: 0 20px 45px rgba(91, 111, 180, 0.1);
+
+  /* Legacy aliases remapped onto the new color system */
+  --bg-soft: var(--bg-section);
+  --bg-blue: var(--bg-section);
+  --card-bg: var(--surface);
   --background: var(--bg-main);
-  --surface: var(--card-bg);
-  --surface-soft: var(--bg-soft);
-  --primary: var(--accent-blue-strong);
-  --primary-dark: #0284c7;
-  --headline-a: var(--text-main);
+  --surface-soft: var(--bg-section);
+
+  --accent-blue: var(--primary-soft);
+  --accent-blue-strong: var(--miku-cyan);
+  --accent-pink: var(--anime-pink-strong);
+  --accent: var(--anime-pink-strong);
+  --accent-soft: rgba(255, 143, 196, 0.14);
+  --violet-soft: rgba(129, 151, 220, 0.12);
+  --cta-hover: var(--anime-pink-strong);
+
+  --headline-a: var(--text-heading);
   --headline-b: #ffffff;
-  --cta-hover: var(--accent-pink);
-  --accent: var(--accent-pink);
-  --accent-soft: rgba(249, 168, 212, 0.14);
-  --violet-soft: rgba(125, 211, 252, 0.1);
-  --text: var(--text-main);
-  --muted: var(--text-muted);
-  --muted-strong: #374151;
+
+  --text: var(--text-soft);
+  --muted: var(--text-soft);
+  --muted-strong: var(--text-soft);
+
   --line: var(--border-soft);
-  --line-strong: #d1d5db;
-  --shadow: 0 24px 70px rgba(31, 41, 55, 0.08);
-  --shadow-strong: 0 28px 90px rgba(31, 41, 55, 0.14);
+  --line-strong: rgba(129, 151, 220, 0.32);
+  --shadow: var(--shadow-soft);
+  --shadow-strong: 0 28px 70px rgba(91, 111, 180, 0.16);
+
   --radius-xs: 10px;
   --radius-sm: 16px;
   --radius-md: 24px;
@@ -504,9 +527,9 @@ p {
 }
 
 .button.primary {
-  color: var(--headline-a);
+  color: #ffffff;
   background: var(--primary);
-  box-shadow: 0 16px 38px rgba(0, 212, 255, 0.2);
+  box-shadow: 0 16px 38px rgba(129, 151, 220, 0.28);
 }
 
 .button.primary:hover {
@@ -514,7 +537,7 @@ p {
 }
 
 .button.primary.inverse {
-  color: var(--text);
+  color: var(--primary-dark);
   background: var(--surface);
   box-shadow: none;
 }
@@ -530,7 +553,7 @@ p {
   width: fit-content;
   align-items: center;
   gap: 8px;
-  color: var(--accent-blue-strong);
+  color: var(--primary-dark);
   font-weight: 800;
 }
 
@@ -555,7 +578,7 @@ p {
 }
 
 .section-header h2 {
-  color: var(--text-main);
+  color: var(--text-heading);
 }
 
 .section-header p:not(.eyebrow) {
@@ -586,7 +609,7 @@ p {
 .faq-list details,
 .consultation-form {
   border: 1px solid var(--line);
-  background: rgba(255, 253, 248, 0.9);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
@@ -1042,7 +1065,7 @@ p {
   padding: 18px;
   border-color: var(--line);
   border-radius: var(--radius-lg);
-  background: rgba(255, 253, 248, 0.9);
+  background: var(--surface);
   box-shadow: var(--shadow);
 }
 
@@ -1062,7 +1085,12 @@ blockquote {
 }
 
 .testimonial-card p {
-  color: var(--muted);
+  color: var(--text-soft);
+}
+
+h2,
+h3 {
+  color: var(--text-heading);
 }
 
 .discord-shot {
